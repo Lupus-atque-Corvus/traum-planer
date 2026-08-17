@@ -1,0 +1,120 @@
+{
+  "@@locale": "de",
+
+  "appName": "TRAUM Planer",
+
+  "navHeute": "Heute",
+  "navWoche": "Woche",
+  "navMonat": "Monat",
+  "navVerlauf": "Verlauf",
+  "navPlaene": "Pläne",
+  "navEinstellungen": "Einstellungen",
+
+  "fensterMinimieren": "Minimieren",
+  "fensterMaximieren": "Maximieren",
+  "fensterSchliessen": "Schließen",
+
+  "terminLabel": "Termin",
+
+  "heuteNochOffen": "Noch offen ({anzahl})",
+  "@heuteNochOffen": {
+    "placeholders": { "anzahl": { "type": "int" } }
+  },
+  "heuteBereitsErledigt": "Bereits erledigt ({anzahl})",
+  "@heuteBereitsErledigt": {
+    "placeholders": { "anzahl": { "type": "int" } }
+  },
+  "heuteNochNichtsErledigt": "Noch nichts erledigt",
+  "heuteAllesErledigt": "Alles für heute erledigt",
+  "heuteKeinEintrag": "Für heute ist nichts geplant.",
+  "heuteZurWoche": "Zur Wochenansicht",
+  "heuteStreakTageInFolge": "{anzahl} Tage in Folge",
+  "@heuteStreakTageInFolge": {
+    "placeholders": { "anzahl": { "type": "int" } }
+  },
+  "statusVerspaetet": "verspätet",
+
+  "wocheTitel": "Woche",
+  "wocheDiese": "Diese Woche",
+  "wocheVorherige": "Vorherige Woche",
+  "wocheNaechste": "Nächste Woche",
+
+  "monatTitel": "Monat",
+  "monatVorheriger": "Vorheriger Monat",
+  "monatNaechster": "Nächster Monat",
+  "monatLegendePuenktlich": "Pünktlich erledigt",
+  "monatLegendeVerspaetet": "Verspätet erledigt",
+  "monatLegendeOffen": "Offen",
+  "monatLegendeVerpasst": "Verpasst",
+
+  "verlaufTitel": "Verlauf",
+  "verlaufZeitraumWoche": "Woche",
+  "verlaufZeitraumMonat": "Monat",
+  "verlaufZeitraumJahr": "Jahr",
+  "verlaufStreakTage": "{anzahl} Tage Streak",
+  "@verlaufStreakTage": {
+    "placeholders": { "anzahl": { "type": "int" } }
+  },
+  "verlaufLegendePuenktlich": "Pünktlich",
+  "verlaufLegendeVerspaetet": "Verspätet nachgeholt",
+  "verlaufKeineDaten": "Noch keine Daten für diesen Zeitraum.",
+
+  "einstellungenTitel": "Einstellungen",
+  "einstellungenSprache": "Sprache",
+  "einstellungenSpracheSystem": "Systemsprache",
+  "einstellungenSpracheDeutsch": "Deutsch",
+  "einstellungenSpracheEnglisch": "Englisch",
+  "einstellungenZeitformat": "Zeitformat",
+  "einstellungenZeitformat12h": "12-Stunden (AM/PM)",
+  "einstellungenZeitformat24h": "24-Stunden",
+
+  "plaeneTitel": "Pläne",
+  "plaeneKeineEintraege": "Noch keine Pläne angelegt.",
+  "planNeu": "Neuer Plan",
+  "planBearbeiten": "Plan bearbeiten",
+  "planTitelFeld": "Titel",
+  "planKategorieFeld": "Kategorie",
+  "planAkzentfarbeFeld": "Akzentfarbe",
+  "planLoeschen": "Plan löschen",
+  "planLoeschenBestaetigung": "Plan wirklich löschen? Alle zugehörigen Aufgaben werden ebenfalls gelöscht. Das kann nicht rückgängig gemacht werden.",
+
+  "aufgabeNeu": "Neue Aufgabe",
+  "aufgabeBearbeiten": "Aufgabe bearbeiten",
+  "aufgabeTitelFeld": "Titel",
+  "aufgabeUhrzeitFestlegen": "Uhrzeit festlegen",
+  "aufgabeWiederholungTaeglich": "Täglich",
+  "aufgabeWiederholungWoechentlich": "Wöchentlich",
+  "aufgabeWiederholungMonatlich": "Monatlich",
+  "aufgabeLoeschen": "Löschen",
+  "aufgabeLoeschenBestaetigung": "Aufgabe wirklich löschen? Das kann nicht rückgängig gemacht werden.",
+  "aufgabeMontag": "Mo",
+  "aufgabeDienstag": "Di",
+  "aufgabeMittwoch": "Mi",
+  "aufgabeDonnerstag": "Do",
+  "aufgabeFreitag": "Fr",
+  "aufgabeSamstag": "Sa",
+  "aufgabeSonntag": "So",
+
+  "aenderungsUmfangTitel": "Diese Änderung gilt für…",
+  "aenderungsUmfangNurWoche": "Nur diese Woche",
+  "aenderungsUmfangNurWocheSubtext": "Ändert nur den Termin in der aktuellen Woche, die Serie bleibt unverändert.",
+  "aenderungsUmfangImmer": "Immer ändern",
+  "aenderungsUmfangImmerSubtext": "Ändert die Wiederholungsregel dauerhaft für alle zukünftigen Wochen.",
+
+  "terminNeu": "Termin erstellen",
+  "terminBearbeiten": "Termin bearbeiten",
+  "terminTitelFeld": "Titel",
+  "terminDatumFeld": "Datum",
+  "terminUhrzeitFeld": "Uhrzeit",
+  "terminOrtFeld": "Ort",
+
+  "aktionAbbrechen": "Abbrechen",
+  "aktionSpeichern": "Speichern",
+  "aktionLoeschen": "Löschen",
+
+  "trayFensterOeffnen": "Fenster öffnen",
+  "trayHeuteAnzeigen": "Heute anzeigen",
+  "trayBeenden": "Beenden",
+
+  "assistentTitel": "Assistent"
+}

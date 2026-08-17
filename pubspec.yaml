@@ -1,0 +1,121 @@
+name: traum_planer
+description: "TRAUM Planer - offline Wochenplaner"
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.0
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+
+  # Datenbank (lokal, SQLite)
+  drift: ^2.23.0
+  sqlite3_flutter_libs: ^0.5.27
+  sqlite3: ^2.7.4
+  path_provider: ^2.1.5
+  path: ^1.9.0
+
+  # State/Routing
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  go_router: ^14.8.1
+
+  # Lokalisierung
+  intl: ^0.20.2
+
+  # Fenster-Chrome
+  window_manager: ^0.4.3
+
+  # Tray/Autostart (Phase 6)
+  tray_manager: ^0.4.0
+  launch_at_startup: ^0.5.1
+
+  # Diagramme (Phase 4)
+  fl_chart: ^0.70.2
+
+  # Benachrichtigungen (Phase 6)
+  local_notifier: ^0.1.6
+
+  # Reaktive Streams kombinieren (Vorkommen-Berechnung aus mehreren Tabellen)
+  rxdart: ^0.28.0
+
+  # JSON-Export/Import (Phase 6)
+  file_selector: ^1.0.3
+
+  # Farbwähler für "Eigene…"-Akzentfarbe
+  flutter_colorpicker: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^6.0.0
+
+  build_runner: ^2.4.13
+  drift_dev: ^2.23.0
+  riverpod_generator: ^2.6.3
+  custom_lint: ^0.7.5
+  riverpod_lint: ^2.6.4
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  generate: true
+
+  # Lokal gebündelte Schriftarten (kein google_fonts-Laufzeitabruf,
+  # damit der erste Start ohne Internetverbindung funktioniert).
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Variable.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Variable.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-Variable.ttf
+          weight: 600
+    - family: IBM Plex Mono
+      fonts:
+        - asset: assets/fonts/IBMPlexMono-Medium.ttf
+          weight: 500

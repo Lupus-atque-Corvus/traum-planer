@@ -1,0 +1,33 @@
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+.metadata
+
+# Generierte Dateien (database.g.dart, l10n/gen/, ...) werden bewusst
+# eingecheckt, damit ein frischer Checkout ohne build_runner-Lauf startet.
+lib/l10n/untranslated.txt
+
+# Platform build output
+windows/flutter/ephemeral/
+linux/flutter/ephemeral/
+**/CMakeFiles/
+**/CMakeCache.txt
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local database (dev)
+*.sqlite
+*.sqlite-journal
