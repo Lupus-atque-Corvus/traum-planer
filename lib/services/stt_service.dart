@@ -15,9 +15,18 @@ import 'package:whisper_ggml/whisper_ggml.dart';
 class SttService {
   static const _model = WhisperModel.small;
 
+  // Sehr kurze/nahezu leere Aufnahmen (< ~1.2s) lassen den nativen
+  // whisper.cpp-Dekodierschritt in Tests reproduzierbar abstürzen
+  // (vermutlich eine Randfall-Division/Indexierung bei sehr wenigen
+  // Mel-Frames — ein Bug in der nativen Bibliothek, nicht im App-Code,
+  // siehe README). Kürzere Aufnahmen werden defensiv verworfen, statt
+  // whisper.cpp überhaupt erst aufzurufen.
+  static const _mindestAufnahmedauer = Duration(milliseconds: 1200);
+
   final WhisperController _controller = WhisperController();
   final AudioRecorder _recorder = AudioRecorder();
   bool _modellBereitgestellt = false;
+  DateTime? _aufnahmeStart;
 
   Future<void> _modellSicherstellen() async {
     if (_modellBereitgestellt) return;
@@ -40,6 +49,7 @@ class SttService {
     await _modellSicherstellen();
     final verzeichnis = await getTemporaryDirectory();
     final pfad = '${verzeichnis.path}/traum_planer_aufnahme.wav';
+    _aufnahmeStart = DateTime.now();
     await _recorder.start(
       const RecordConfig(encoder: AudioEncoder.wav, sampleRate: 16000, numChannels: 1),
       path: pfad,
@@ -47,10 +57,15 @@ class SttService {
   }
 
   /// Stoppt die Aufnahme und liefert den erkannten Text zurück (leerer
-  /// String, falls nichts verständlich war).
+  /// String, falls nichts verständlich war oder die Aufnahme zu kurz war).
   Future<String> aufnahmeStoppenUndErkennen() async {
+    final start = _aufnahmeStart;
     final pfad = await _recorder.stop();
     if (pfad == null) return '';
+
+    if (start != null && DateTime.now().difference(start) < _mindestAufnahmedauer) {
+      return '';
+    }
 
     final ergebnis = await _controller.transcribe(
       model: _model,
