@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -54,14 +55,7 @@ class AppSidebar extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.xl, AppSpacing.lg, AppSpacing.lg),
             child: Row(
               children: [
-                Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    color: AppColors.brandPrimary,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
+                SvgPicture.asset('assets/logo/logo-mark.svg', width: 24, height: 24),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                   child: Text(

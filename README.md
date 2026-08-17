@@ -1,4 +1,4 @@
-# TRAUM Planer
+<img src="assets/logo/logo-lockup.svg" alt="TRAUM Planer" height="72">
 
 Ein Wochenplaner für den Desktop, der einfach läuft — ohne Konto, ohne Cloud, ohne Internet. Aufgaben, wiederkehrende Pläne, Termine und ein ehrlicher Verlauf, wer wie oft dranbleibt. Für Windows und Linux.
 

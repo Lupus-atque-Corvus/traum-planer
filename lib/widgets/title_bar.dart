@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../l10n/gen/app_localizations.dart';
@@ -36,6 +37,8 @@ class AppTitleBar extends ConsumerWidget implements PreferredSizeWidget {
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                 child: Row(
                   children: [
+                    SvgPicture.asset('assets/logo/logo-mark.svg', width: 16, height: 16),
+                    const SizedBox(width: AppSpacing.sm),
                     Text(
                       l10n.appName,
                       style: Theme.of(context).textTheme.labelMedium,

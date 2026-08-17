@@ -55,6 +55,9 @@ dependencies:
   # Fenster-Chrome
   window_manager: ^0.4.3
 
+  # Logo (SVG, siehe assets/logo/)
+  flutter_svg: ^2.2.1
+
   # Tray/Autostart (Phase 6)
   tray_manager: ^0.4.0
   launch_at_startup: ^0.5.1
@@ -114,6 +117,7 @@ flutter:
   assets:
     - assets/icon/app_icon.ico
     - assets/icon/app_icon.png
+    - assets/logo/logo-mark.svg
     - assets/whisper/ggml-small.bin
 
   # Lokal gebündelte Schriftarten (kein google_fonts-Laufzeitabruf,
