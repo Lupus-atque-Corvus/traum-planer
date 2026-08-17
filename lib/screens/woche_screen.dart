@@ -38,6 +38,7 @@ class WocheScreen extends ConsumerWidget {
     final tage = wochenTage(anker);
     final ist24h = (ref.watch(zeitformatProvider).valueOrNull ?? '24h') == '24h';
     final datenAsync = ref.watch(_wocheDatenProvider);
+    final db = ref.watch(databaseProvider);
 
     final spanne = '${DateFormat.Md(locale).format(tage.first)} – ${DateFormat.yMMMd(locale).format(tage.last)}';
 
@@ -91,6 +92,9 @@ class WocheScreen extends ConsumerWidget {
                           locale: locale,
                           l10n: l10n,
                           onVorkommenTap: (v) => vorkommenBearbeitenZeigen(context, ref, v),
+                          onVorkommenToggle: (v) => v.istErledigt
+                              ? db.erledigtRueckgaengigMachen(v.aufgabe.id, v.datum)
+                              : db.alsErledigtMarkieren(v.aufgabe.id, v.datum),
                         ),
                       ),
                   ],
@@ -113,6 +117,7 @@ class _TagSpalte extends StatelessWidget {
   final String locale;
   final AppLocalizations l10n;
   final void Function(Vorkommen v) onVorkommenTap;
+  final void Function(Vorkommen v) onVorkommenToggle;
 
   const _TagSpalte({
     required this.tag,
@@ -123,6 +128,7 @@ class _TagSpalte extends StatelessWidget {
     required this.locale,
     required this.l10n,
     required this.onVorkommenTap,
+    required this.onVorkommenToggle,
   });
 
   @override
@@ -178,6 +184,7 @@ class _TagSpalte extends StatelessWidget {
                       gestrichelt: false,
                       ist24h: ist24h,
                       onTap: () => onVorkommenTap(v),
+                      onToggle: () => onVorkommenToggle(v),
                     ),
                   for (final t in termine)
                     _Chip(
@@ -188,6 +195,7 @@ class _TagSpalte extends StatelessWidget {
                       gestrichelt: true,
                       ist24h: ist24h,
                       onTap: null,
+                      onToggle: null,
                     ),
                 ],
               ),
@@ -207,6 +215,7 @@ class _Chip extends StatelessWidget {
   final bool gestrichelt;
   final bool ist24h;
   final VoidCallback? onTap;
+  final VoidCallback? onToggle;
 
   const _Chip({
     required this.titel,
@@ -216,6 +225,7 @@ class _Chip extends StatelessWidget {
     required this.gestrichelt,
     required this.ist24h,
     required this.onTap,
+    required this.onToggle,
   });
 
   @override
@@ -240,10 +250,17 @@ class _Chip extends StatelessWidget {
         ),
         child: Row(
           children: [
-            if (erledigt)
-              const Padding(
-                padding: EdgeInsets.only(right: 4),
-                child: Icon(Icons.check, size: 11, color: AppColors.statusDoneOnTime),
+            if (onToggle != null)
+              GestureDetector(
+                onTap: onToggle,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Icon(
+                    erledigt ? Icons.check_circle : Icons.circle_outlined,
+                    size: 13,
+                    color: erledigt ? AppColors.statusDoneOnTime : AppColors.statusOpen,
+                  ),
+                ),
               ),
             Expanded(
               child: Text(

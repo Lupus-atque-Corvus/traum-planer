@@ -95,83 +95,85 @@ Zwei Stellen in der bisherigen Planung setzten stillschweigend Internet voraus �
 ## 7. Phasen-Checkliste
 
 ### Phase 0 — Projekt-Setup
-- [ ] GitHub-Repo `traum-planer` anlegen — Annahme: **privat**, da persönliches Planungstool, jederzeit später in den Einstellungen auf öffentlich umstellbar. Über `gh repo create traum-planer --private --source=. --remote=origin` (setzt authentifizierte GitHub-CLI voraus) oder manuell auf github.com plus `git remote add origin`
-- [ ] `README.md` mit Kurzbeschreibung des Projekts (Name TRAUM Planer, Zweck, Plattformen) anlegen
-- [ ] Bestehende Projektdokumente hochladen: `docs/spec.md` (Inhalt aus `wochenplan-app-spec-gesamt.md`), `docs/design/` mit `wochenplan-ui-design.md` und den vier HTML-Mockups
-- [ ] `.gitignore` für Flutter/Dart ergänzen (`.dart_tool/`, Build-Ordner, IDE-Dateien)
-- [ ] Ersten Commit + Push nach `origin/main`
-- [ ] Ersten Release-Tag setzen, z. B. `v0.1.0-planning`, Release-Notes: "Projektspezifikation und UI-Design abgeschlossen, Code-Umsetzung beginnt mit Phase 0." **Enthält noch keine lauffähige Anwendung** — vor Abschluss von Phase 3 gibt es keinen Build. Ein Release mit echten Windows-/Linux-Binaries ist sinnvollerweise erst nach den ersten nutzbaren Kernansichten fällig
-- [ ] `flutter create --platforms=windows,linux <projektname>` (kann in dasselbe Repo oder als Folge-Commit erfolgen)
-- [ ] Ordnerstruktur: `lib/models`, `lib/data`, `lib/screens`, `lib/widgets`, `lib/theme`, `lib/l10n`
-- [ ] Drift + `sqlite3_flutter_libs` für Desktop, eigene neue Datenbankdatei
-- [ ] Riverpod + GoRouter
-- [ ] `flutter_localizations` + ARB-Grundgerüst für `de` und `en` anlegen — ab dem ersten Screen konsequent nutzen, nicht nachträglich
-- [ ] Locale-Logik: Systemsprache als Default, manuell umschaltbar, Fallback Englisch falls Systemsprache weder de noch en
-- [ ] Inter + IBM Plex Mono als lokale Font-Assets einbinden (kein `google_fonts`-Laufzeitabruf)
-- [ ] `window_manager` (oder vergleichbar) für eigenes Fenster-Chrome
-- [ ] Pakete für Phase 4 (`fl_chart`) und Phase 6 (`tray_manager`/`system_tray`) einplanen
+- [x] GitHub-Repo `traum-planer` anlegen — **Abweichung von der Annahme:** öffentlich statt privat (auf Nachfrage vom Nutzer so entschieden). `https://github.com/Lupus-atque-Corvus/traum-planer`
+- [x] `README.md` mit Kurzbeschreibung des Projekts (Name TRAUM Planer, Zweck, Plattformen) anlegen
+- [x] Bestehende Projektdokumente hochladen: `docs/spec.md` (Inhalt aus `wochenplan-app-spec-gesamt.md`), `docs/design/` mit `wochenplan-ui-design.md` und den vier HTML-Mockups
+- [x] `.gitignore` für Flutter/Dart ergänzen (`.dart_tool/`, Build-Ordner, IDE-Dateien)
+- [x] Ersten Commit + Push nach `origin/main`
+- [x] Ersten Release-Tag setzen, z. B. `v0.1.0-planning`, Release-Notes: "Projektspezifikation und UI-Design abgeschlossen, Code-Umsetzung beginnt mit Phase 0." **Enthält noch keine lauffähige Anwendung** — vor Abschluss von Phase 3 gibt es keinen Build. Ein Release mit echten Windows-/Linux-Binaries ist sinnvollerweise erst nach den ersten nutzbaren Kernansichten fällig
+- [x] `flutter create --platforms=windows,linux <projektname>` (kann in dasselbe Repo oder als Folge-Commit erfolgen)
+- [x] Ordnerstruktur: `lib/models`, `lib/data`, `lib/screens`, `lib/widgets`, `lib/theme`, `lib/l10n`
+- [x] Drift + `sqlite3_flutter_libs` für Desktop, eigene neue Datenbankdatei
+- [x] Riverpod + GoRouter
+- [x] `flutter_localizations` + ARB-Grundgerüst für `de` und `en` anlegen — ab dem ersten Screen konsequent nutzen, nicht nachträglich
+- [x] Locale-Logik: Systemsprache als Default, manuell umschaltbar, Fallback Englisch falls Systemsprache weder de noch en
+- [x] Inter + IBM Plex Mono als lokale Font-Assets einbinden (kein `google_fonts`-Laufzeitabruf)
+- [x] `window_manager` (oder vergleichbar) für eigenes Fenster-Chrome
+- [x] Pakete für Phase 4 (`fl_chart`) und Phase 6 (`tray_manager`/`system_tray`) einplanen
 
 ### Phase 1 — Datenmodell
-- [ ] Tabellen wie in Abschnitt 4 anlegen: `Plaene`, `Aufgaben`, `Wiederholungsregeln`, `Erledigt`, `Termine`, `Ausnahmen`, `Einstellungen`
-- [ ] Migrationsstrategie ab schemaVersion 1 dokumentieren
+- [x] Tabellen wie in Abschnitt 4 anlegen: `Plaene`, `Aufgaben`, `Wiederholungsregeln`, `Erledigt`, `Termine`, `Ausnahmen`, `Einstellungen`
+- [x] Migrationsstrategie ab schemaVersion 1 dokumentieren (siehe `lib/data/database.dart`, `MigrationStrategy.onUpgrade`)
 
 ### Phase 2 — UI-Design ✅ abgeschlossen
 - [x] Design-Tokens, 10 Bildschirme mit Zuständen, 4 HTML-Mockups vorhanden (siehe Abschnitt 5, Volltext in `docs/design/`)
-- [ ] Design-Dokument + Mockups im Repo ablegen unter `docs/design/`
-- [ ] Design-Tokens als Flutter-`ThemeData`/`ColorScheme` übertragen
+- [x] Design-Dokument + Mockups im Repo ablegen unter `docs/design/`
+- [x] Design-Tokens als Flutter-`ThemeData`/`ColorScheme` übertragen (`lib/theme/`)
 
 ### Phase 3 — Kernansichten: Tag, Woche, Monat
-- [ ] Heute-Ansicht: Abschnitte "Offen"/"Erledigt", Abhaken wandert zwischen Abschnitten
-- [ ] Wochenansicht: Raster Mo–So, Pläne + Termine kombiniert
-- [ ] Monatsansicht: Kachel pro Tag, Segmentbalken nach Erledigungsgrad
-- [ ] Zentraler Umschalter Tag/Woche/Monat
-- [ ] Navigation vor/zurück, auch in die Vergangenheit
-- [ ] Tageswechsel um Mitternacht automatisch
+- [x] Heute-Ansicht: Abschnitte "Offen"/"Erledigt", Abhaken wandert zwischen Abschnitten
+- [x] Wochenansicht: Raster Mo–So, Pläne + Termine kombiniert
+- [x] Monatsansicht: Kachel pro Tag, Segmentbalken nach Erledigungsgrad
+- [x] Zentraler Umschalter Tag/Woche/Monat (Seitenleiste)
+- [x] Navigation vor/zurück, auch in die Vergangenheit
+- [x] Tageswechsel um Mitternacht automatisch (`heutigesDatumProvider`)
 
 ### Phase 4 — Verlauf und Statistik
-- [ ] Vergangene Zeiträume aufrufbar, offen für rückwirkendes Abhaken
-- [ ] Rückwirkendes Abhaken schreibt `erledigtAm`, `faelligDatum` bleibt unverändert
-- [ ] Filteransicht "erledigt in diesem Zeitraum" (Woche/Monat/gesamt)
-- [ ] Erfolgsquote pro Aufgabe/Plan über wählbaren Zeitraum
-- [ ] Streak-Berechnung aus vorhandenen Daten, keine zusätzliche Tabelle
-- [ ] Grafische Übersicht (`fl_chart`), pünktlich vs. verspätet farblich unterschieden
+- [x] Vergangene Zeiträume aufrufbar, offen für rückwirkendes Abhaken (Wochenansicht, Statuskreis pro Vorkommen)
+- [x] Rückwirkendes Abhaken schreibt `erledigtAm`, `faelligDatum` bleibt unverändert
+- [x] Filteransicht "erledigt in diesem Zeitraum" (Woche/Monat/Jahr, Verlauf-Bildschirm)
+- [x] Erfolgsquote pro Aufgabe/Plan über wählbaren Zeitraum
+- [x] Streak-Berechnung aus vorhandenen Daten, keine zusätzliche Tabelle
+- [x] Grafische Übersicht (`fl_chart`), pünktlich vs. verspätet farblich unterschieden
 
 ### Phase 5 — Bearbeiten
-- [ ] Plan erstellen: Titel, Kategorie, Akzentfarbe
-- [ ] Aufgabe hinzufügen/bearbeiten/löschen, Wiederholungsregel als Chip-Picker
-- [ ] "Nur diese Woche" vs. "Immer ändern"-Dialog bei wiederkehrenden Aufgaben
-- [ ] Termin erstellen (Titel, Datum, Uhrzeit optional, Ort optional)
-- [ ] Reihenfolge per Drag & Drop
-- [ ] Plan löschen mit Bestätigung
-- [ ] Einstellungsbildschirm (aus der Seitenleiste erreichbar, siehe Design-Gerüst): Zeitformat 12h/24h als Umschalter, Sprachumschalter (siehe Phase 7)
+- [x] Plan erstellen: Titel, Kategorie, Akzentfarbe
+- [x] Aufgabe hinzufügen/bearbeiten/löschen, Wiederholungsregel als Chip-Picker
+- [x] "Nur diese Woche" vs. "Immer ändern"-Dialog bei wiederkehrenden Aufgaben
+- [x] Termin erstellen (Titel, Datum, Uhrzeit optional, Ort optional)
+- [ ] Reihenfolge per Drag & Drop — **noch offen**, Sortierindex-Feld existiert in der DB, aber noch keine Drag-Drop-UI
+- [x] Plan löschen mit Bestätigung
+- [x] Einstellungsbildschirm (aus der Seitenleiste erreichbar): Zeitformat 12h/24h als Umschalter, Sprachumschalter
 
 ### Phase 6 — Dauerbetrieb und Systemintegration
-- [ ] Autostart mit dem System (Windows: Autostart-Ordner/Registry, Linux: `.desktop` in `~/.config/autostart/`)
-- [ ] Tray-Icon statt Beenden, Tray-Menü (Fenster öffnen, Heute anzeigen, Beenden)
-- [ ] Ressourcenschonender Hintergrundbetrieb (kein Polling, nur Mitternachts- und Benachrichtigungs-Timer)
-- [ ] Lokale Desktop-Benachrichtigung X Minuten vor Aufgabe
-- [ ] Export als druckbares HTML im bisherigen A3-Design
-- [ ] JSON-Export/Import für Backup
+- [x] Autostart mit dem System (`launch_at_startup`, Umschalter in Einstellungen)
+- [x] Tray-Icon statt Beenden, Tray-Menü (Fenster öffnen, Heute anzeigen, Beenden) — Windows getestet, Linux-Pfad (AppIndicator) mitgebaut, aber noch nicht auf echtem Linux getestet
+- [x] Ressourcenschonender Hintergrundbetrieb (kein Polling, nur Mitternachts- und Benachrichtigungs-Timer)
+- [x] Lokale Desktop-Benachrichtigung X Minuten vor Aufgabe (Vorlaufzeit einstellbar)
+- [x] Export als druckbares HTML — eigenes, neues A3-Layout (kein "bisheriges" A3-Design vorhanden, da keine Vorgänger-Datei existierte)
+- [x] JSON-Export/Import für Backup
 
 ### Phase 7 — Lokalisierung DE/EN (neu)
-- [ ] Alle UI-Strings aus Phase 3–6 vollständig in ARB (de, en) nachziehen, keine Lücken
-- [ ] Datum-/Uhrzeitformat: **12h/24h als Nutzereinstellung wählbar** (gespeichert in `Einstellungen`), unabhängig von der UI-Sprache — kein Automatismus, Nutzer entscheidet selbst
-- [ ] Sprachumschalter in Einstellungen, Wechsel wirksam ohne Neustart
-- [ ] HTML-Export (aus Phase 6) ebenfalls zweisprachig, abhängig von aktueller App-Spracheinstellung, Zeitformat im Export folgt derselben Einstellung
+- [x] Alle UI-Strings aus Phase 3–6 vollständig in ARB (de, en) nachziehen, keine Lücken (`flutter gen-l10n` meldet keine fehlenden Übersetzungen)
+- [x] Datum-/Uhrzeitformat: **12h/24h als Nutzereinstellung wählbar** (gespeichert in `Einstellungen`), unabhängig von der UI-Sprache — kein Automatismus, Nutzer entscheidet selbst
+- [x] Sprachumschalter in Einstellungen, Wechsel wirksam ohne Neustart
+- [x] HTML-Export (aus Phase 6) ebenfalls zweisprachig, abhängig von aktueller App-Spracheinstellung, Zeitformat im Export folgt derselben Einstellung
 
 ### Phase 8 — Sprach- und LLM-Erweiterung (später, offline + zweisprachig)
-- [ ] Lokales STT: `whisper.cpp`, mehrsprachiges Modell, **automatische Spracherkennung** (Deutsch/Englisch gemischt möglich, kein Umweg über UI-Sprache)
-- [ ] Lokales TTS: Windows SAPI (de-DE/en-US), Linux `espeak-ng` o. ä. als dokumentierte Abhängigkeit
-- [ ] Lokales LLM via Ollama, zweisprachig fähiges Modell
-- [ ] **Modelle vollständig im Installer bündeln** — App ist ab dem ersten Start offline, keine Downloads bei Ersteinrichtung. Bei der Modellwahl auf kompakte, dennoch zweisprachig taugliche Varianten achten, da Installer-Größe direkt betroffen ist
-- [ ] Funktionsaufruf-Schnittstelle, zweisprachig getestet:
+- [ ] Lokales STT: `whisper.cpp`, mehrsprachiges Modell, automatische Spracherkennung — **nicht umgesetzt**, siehe Hinweis unten
+- [ ] Lokales TTS: Windows SAPI (de-DE/en-US), Linux `espeak-ng` o. ä. — **nicht umgesetzt**
+- [ ] Lokales LLM via Ollama, zweisprachig fähiges Modell — **nicht umgesetzt**
+- [ ] **Modelle vollständig im Installer bündeln** — **nicht umgesetzt**
+- [x] Funktionsaufruf-Schnittstelle als eigenständige, funktionierende Dart-Bibliothek (`lib/services/assistent_funktionen.dart`), noch nicht an ein LLM angebunden:
   - `heute_offen_abfragen`
   - `heute_erledigt_abfragen`
   - `zeitraum_erledigt_abfragen(von, bis)`
   - `aufgabe_hinzufuegen(plan, titel, uhrzeit, wiederholung)`
   - `termin_hinzufuegen(titel, datum, uhrzeit)`
   - `aufgabe_rueckwirkend_abhaken(aufgabe, datum)`
-- [ ] Chat-/Sprachfenster als abschaltbarer Bildschirm, App bleibt ohne LLM voll nutzbar
+- [x] Chat-/Sprachfenster als abschaltbarer Bildschirm — Platzhalter-UI vorhanden (`lib/widgets/assistent_panel.dart`), App bleibt ohne LLM voll nutzbar
+
+**Hinweis zum Stand von Phase 8:** whisper.cpp-Kompilierung, Ollama-Installation und das Bündeln mehrerer hundert MB bis wenige GB an Modelldateien in den Installer sind in dieser Runde bewusst nicht angegangen worden — das sprengt den Rahmen einer automatisierten Coding-Sitzung und erfordert eigene Entscheidungen (Modellwahl, Installer-Größe, siehe offene Frage 2). Die Funktionsaufruf-Schnittstelle ist als eigenständiges, testbares Modul fertig und wartet auf die Anbindung.
 
 ## 8. Offene Fragen
 
