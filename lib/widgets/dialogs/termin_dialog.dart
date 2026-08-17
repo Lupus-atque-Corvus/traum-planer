@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../data/database.dart';
+import '../../data/wiederholung_logik.dart';
 import '../../l10n/gen/app_localizations.dart';
 import '../../providers/database_provider.dart';
 import '../../providers/einstellungen_provider.dart';
@@ -41,7 +42,7 @@ class _TerminDialogState extends ConsumerState<_TerminDialog> {
     final t = widget.vorhandenerTermin;
     _titelController = TextEditingController(text: t?.titel ?? '');
     _ortController = TextEditingController(text: t?.ort ?? '');
-    _datum = t?.datum ?? widget.initialDatum ?? DateTime.now();
+    _datum = nurDatum(t?.datum ?? widget.initialDatum ?? DateTime.now());
     if (t?.uhrzeitMinuten != null) {
       _uhrzeit = TimeOfDay(hour: t!.uhrzeitMinuten! ~/ 60, minute: t.uhrzeitMinuten! % 60);
     }
@@ -73,7 +74,7 @@ class _TerminDialogState extends ConsumerState<_TerminDialog> {
               ? Value(widget.vorhandenerTermin!.id)
               : const Value.absent(),
           titel: Value(titel),
-          datum: Value(_datum),
+          datum: Value(nurDatum(_datum)),
           uhrzeitMinuten: Value(_uhrzeit == null ? null : _uhrzeit!.hour * 60 + _uhrzeit!.minute),
           ort: Value(_ortController.text.trim().isEmpty ? null : _ortController.text.trim()),
         ));

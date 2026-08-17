@@ -1,23 +1,53 @@
 # TRAUM Planer
 
-Ein eigenständiger, vollständig offline lauffähiger Wochenplaner für Windows und Linux — Aufgaben, wiederkehrende Pläne, Termine, Verlauf/Statistik, später eine lokale, zweisprachige Sprach-/LLM-Erweiterung.
+Ein Wochenplaner für den Desktop, der einfach läuft — ohne Konto, ohne Cloud, ohne Internet. Aufgaben, wiederkehrende Pläne, Termine und ein ehrlicher Verlauf, wer wie oft dranbleibt. Für Windows und Linux.
 
-Kein Bezug zur mobilen TRAUM-App — eigenes Repo, eigener Code, eigene Datenbank. Der Name teilt bewusst nur das Wort "TRAUM" als persönliche Markenklammer.
+![Heute-Ansicht](docs/screenshots/heute.png)
 
-## Eigenschaften
+Alles, was du einträgst, bleibt auf deinem Rechner. Kein Tracking, kein Login, kein "bitte Internetverbindung prüfen" beim ersten Start.
 
-- **Zweisprachig** (Deutsch/Englisch), inklusive der geplanten Sprach-/LLM-Erweiterung
-- **Vollständig offline** — keine Funktion setzt beim normalen Gebrauch eine Internetverbindung voraus
-- **Plattformen:** Windows, Linux (Flutter Desktop, aus einer Codebasis)
-- **Lokale Datenhaltung:** SQLite via Drift, keine Cloud-Synchronisation
+## Woche und Monat auf einen Blick
+
+Zwischen Tag, Woche und Monat wechseln, auch in die Vergangenheit zurückblättern und rückwirkend abhaken — nachgeholt zählt als "verspätet", nicht als Fehltag.
+
+![Wochenansicht](docs/screenshots/woche.png)
+![Monatsansicht](docs/screenshots/monat.png)
+
+## Verlauf, der nicht anklagt
+
+Erfolgsquote und Streak pro Plan, dazu ein Verlauf über Woche, Monat oder Jahr — pünktlich und verspätet farblich unterschieden, verpasste Tage bleiben schlicht grau statt rot.
+
+![Verlauf](docs/screenshots/verlauf.png)
+
+## Eigene Pläne, per Drag & Drop sortiert
+
+Beliebig viele Pläne mit eigener Farbe, Aufgaben mit täglicher, wöchentlicher oder monatlicher Wiederholung. Reihenfolge einfach per Drag & Drop anpassen.
+
+![Pläne](docs/screenshots/plaene.png)
+
+## Zweisprachig bis ins Detail
+
+Deutsch oder Englisch, 12- oder 24-Stunden-Format — beides unabhängig einstellbar. Dazu Autostart, Tray-Icon statt Beenden, Erinnerungen vor Fälligkeit und Export als druckbares HTML oder JSON-Backup.
+
+![Einstellungen](docs/screenshots/einstellungen.png)
+
+## Ein Assistent, der wirklich lokal ist
+
+Optional ein Sprachassistent, der komplett auf dem eigenen Rechner läuft (Ollama + lokales Spracherkennungsmodell) — fragt nach offenen Aufgaben, trägt neue ein, hakt rückwirkend ab. Ohne ihn ist die App genauso voll nutzbar.
+
+![Assistent](docs/screenshots/assistent.png)
+
+## Loslegen
+
+Fertigen Windows-Installer aus dem [neuesten Release](https://github.com/Lupus-atque-Corvus/traum-planer/releases/latest) laden — keine Adminrechte nötig, ca. 500 MB (inklusive lokalem Spracherkennungsmodell).
+
+---
 
 ## Tech-Stack
 
 Flutter/Dart · Drift (SQLite) · Riverpod · GoRouter · `flutter_localizations` (ARB, de/en)
 
-## Status
-
-Projekt befindet sich im Aufbau. Vollständige Spezifikation: [`docs/spec.md`](docs/spec.md).
+Vollständige Spezifikation: [`docs/spec.md`](docs/spec.md).
 
 ## Entwicklung
 
@@ -41,7 +71,7 @@ Der Assistent (Roboter-Icon in der Titelleiste) läuft komplett lokal und ist op
 - **STT:** Whisper-Modell einmalig laden: `bash tool/fetch_models.sh` (lädt `assets/whisper/ggml-small.bin`, ~465 MB, wird als Flutter-Asset gebündelt). Die Spracherkennung (`whisper_ggml`, mehrsprachig, automatische Spracherkennung) lädt das Modell und erkennt die Sprache zuverlässig. **Bekannter Randfall:** Sehr kurze/nahezu leere Aufnahmen (unter ca. 1,2 Sekunden) lassen den nativen Dekodier-Schritt reproduzierbar abstürzen — vermutlich eine Randfall-Indexierung bei sehr wenigen Mel-Frames in `whisper.cpp` selbst (getestet über AVX2- und Baseline-SSE2-Build sowie zwei `whisper_ggml`-Versionen hinweg, tritt in beiden identisch auf). Die App wehrt das jetzt defensiv ab (`lib/services/stt_service.dart`: Aufnahmen unter 1,2 s werden verworfen, bevor `whisper.cpp` überhaupt aufgerufen wird) — mit normaler Sprachdauer (mehr als ein, zwei Worte) tritt der Absturz in Tests nicht mehr auf. Ohne AVX2 (CMake-Option `WHISPER_GGML_AVX2=OFF`) läuft die Dekodierung auf dieser Testhardware zudem spürbar langsamer.
 - **TTS:** Windows nutzt die vorinstallierte SAPI (`System.Speech`, kein zusätzliches Setup). Linux benötigt `espeak-ng` (`apt install espeak-ng` o. ä.).
 
-## Windows-Installer
+## Windows-Installer bauen
 
 ```powershell
 flutter build windows --release
