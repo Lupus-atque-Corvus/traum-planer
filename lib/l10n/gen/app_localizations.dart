@@ -631,6 +631,120 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Assistent'**
   String get assistentTitel;
+
+  /// No description provided for @einstellungenAutostart.
+  ///
+  /// In de, this message translates to:
+  /// **'Mit dem System starten'**
+  String get einstellungenAutostart;
+
+  /// No description provided for @einstellungenBenachrichtigungen.
+  ///
+  /// In de, this message translates to:
+  /// **'Benachrichtigungen'**
+  String get einstellungenBenachrichtigungen;
+
+  /// No description provided for @einstellungenBenachrichtigungenVorlauf.
+  ///
+  /// In de, this message translates to:
+  /// **'Erinnerung {minuten} Minuten vorher'**
+  String einstellungenBenachrichtigungenVorlauf(int minuten);
+
+  /// No description provided for @einstellungenExport.
+  ///
+  /// In de, this message translates to:
+  /// **'Export & Sicherung'**
+  String get einstellungenExport;
+
+  /// No description provided for @einstellungenExportHtml.
+  ///
+  /// In de, this message translates to:
+  /// **'Als druckbares HTML exportieren'**
+  String get einstellungenExportHtml;
+
+  /// No description provided for @einstellungenExportJson.
+  ///
+  /// In de, this message translates to:
+  /// **'Als JSON sichern'**
+  String get einstellungenExportJson;
+
+  /// No description provided for @einstellungenImportJson.
+  ///
+  /// In de, this message translates to:
+  /// **'Aus JSON wiederherstellen'**
+  String get einstellungenImportJson;
+
+  /// No description provided for @einstellungenImportBestaetigung.
+  ///
+  /// In de, this message translates to:
+  /// **'Import überschreibt alle vorhandenen Daten. Fortfahren?'**
+  String get einstellungenImportBestaetigung;
+
+  /// No description provided for @einstellungenExportErfolgreich.
+  ///
+  /// In de, this message translates to:
+  /// **'Export erfolgreich gespeichert.'**
+  String get einstellungenExportErfolgreich;
+
+  /// No description provided for @einstellungenImportErfolgreich.
+  ///
+  /// In de, this message translates to:
+  /// **'Daten erfolgreich wiederhergestellt.'**
+  String get einstellungenImportErfolgreich;
+
+  /// No description provided for @benachrichtigungAufgabeFaelligTitel.
+  ///
+  /// In de, this message translates to:
+  /// **'{titel} steht an'**
+  String benachrichtigungAufgabeFaelligTitel(String titel);
+
+  /// No description provided for @benachrichtigungAufgabeFaelligKoerper.
+  ///
+  /// In de, this message translates to:
+  /// **'Geplant für {uhrzeit}'**
+  String benachrichtigungAufgabeFaelligKoerper(String uhrzeit);
+
+  /// No description provided for @exportDruckTitel.
+  ///
+  /// In de, this message translates to:
+  /// **'Wochenplan'**
+  String get exportDruckTitel;
+
+  /// No description provided for @exportDruckErstelltAm.
+  ///
+  /// In de, this message translates to:
+  /// **'Erstellt am {datum}'**
+  String exportDruckErstelltAm(Object datum);
+
+  /// No description provided for @assistentOeffnen.
+  ///
+  /// In de, this message translates to:
+  /// **'Assistent öffnen'**
+  String get assistentOeffnen;
+
+  /// No description provided for @assistentSchliessen.
+  ///
+  /// In de, this message translates to:
+  /// **'Schließen'**
+  String get assistentSchliessen;
+
+  /// No description provided for @assistentPlatzhalterHinweis.
+  ///
+  /// In de, this message translates to:
+  /// **'Der Sprach-/LLM-Assistent ist für eine spätere Version geplant (Phase 8) — vollständig offline, zweisprachig. Noch nicht aktiv.'**
+  String get assistentPlatzhalterHinweis;
+
+  /// No description provided for @assistentEingabePlatzhalter.
+  ///
+  /// In de, this message translates to:
+  /// **'Nachricht eingeben…'**
+  String get assistentEingabePlatzhalter;
+
+  /// No description provided for @assistentMikrofonHinweis.
+  ///
+  /// In de, this message translates to:
+  /// **'Spracheingabe noch nicht verfügbar'**
+  String get assistentMikrofonHinweis;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launch_at_startup/launch_at_startup.dart';
 
 import 'database_provider.dart';
 
@@ -8,6 +9,8 @@ class EinstellungenSchluessel {
 
   static const sprache = 'sprache'; // 'de' | 'en' | 'system'
   static const zeitformat = 'zeitformat'; // '12h' | '24h'
+  static const autostart = 'autostart'; // 'ein' | 'aus'
+  static const benachrichtigungVorlauf = 'benachrichtigungVorlaufMinuten'; // int als String
 }
 
 /// Aktuell gewählte Sprache: 'de', 'en' oder 'system' (Default).
@@ -23,6 +26,20 @@ final zeitformatProvider = StreamProvider<String>((ref) {
   return db.einstellungBeobachten(EinstellungenSchluessel.zeitformat).map((v) => v ?? '24h');
 });
 
+/// Autostart-Präferenz: 'ein' oder 'aus' (Default 'aus').
+final autostartProvider = StreamProvider<bool>((ref) {
+  final db = ref.watch(databaseProvider);
+  return db.einstellungBeobachten(EinstellungenSchluessel.autostart).map((v) => v == 'ein');
+});
+
+/// Erinnerungsvorlauf in Minuten vor Fälligkeit (Default 10).
+final benachrichtigungVorlaufProvider = StreamProvider<int>((ref) {
+  final db = ref.watch(databaseProvider);
+  return db
+      .einstellungBeobachten(EinstellungenSchluessel.benachrichtigungVorlauf)
+      .map((v) => int.tryParse(v ?? '') ?? 10);
+});
+
 final einstellungenControllerProvider = Provider((ref) => EinstellungenController(ref));
 
 class EinstellungenController {
@@ -36,4 +53,19 @@ class EinstellungenController {
   Future<void> zeitformatSetzen(String wert) => ref
       .read(databaseProvider)
       .einstellungSpeichern(EinstellungenSchluessel.zeitformat, wert);
+
+  Future<void> autostartSetzen(bool aktiv) async {
+    await ref
+        .read(databaseProvider)
+        .einstellungSpeichern(EinstellungenSchluessel.autostart, aktiv ? 'ein' : 'aus');
+    if (aktiv) {
+      await launchAtStartup.enable();
+    } else {
+      await launchAtStartup.disable();
+    }
+  }
+
+  Future<void> benachrichtigungVorlaufSetzen(int minuten) => ref
+      .read(databaseProvider)
+      .einstellungSpeichern(EinstellungenSchluessel.benachrichtigungVorlauf, '$minuten');
 }

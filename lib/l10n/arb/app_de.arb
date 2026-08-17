@@ -116,5 +116,35 @@
   "trayHeuteAnzeigen": "Heute anzeigen",
   "trayBeenden": "Beenden",
 
-  "assistentTitel": "Assistent"
+  "assistentTitel": "Assistent",
+
+  "einstellungenAutostart": "Mit dem System starten",
+  "einstellungenBenachrichtigungen": "Benachrichtigungen",
+  "einstellungenBenachrichtigungenVorlauf": "Erinnerung {minuten} Minuten vorher",
+  "@einstellungenBenachrichtigungenVorlauf": {
+    "placeholders": { "minuten": { "type": "int" } }
+  },
+  "einstellungenExport": "Export & Sicherung",
+  "einstellungenExportHtml": "Als druckbares HTML exportieren",
+  "einstellungenExportJson": "Als JSON sichern",
+  "einstellungenImportJson": "Aus JSON wiederherstellen",
+  "einstellungenImportBestaetigung": "Import überschreibt alle vorhandenen Daten. Fortfahren?",
+  "einstellungenExportErfolgreich": "Export erfolgreich gespeichert.",
+  "einstellungenImportErfolgreich": "Daten erfolgreich wiederhergestellt.",
+  "benachrichtigungAufgabeFaelligTitel": "{titel} steht an",
+  "@benachrichtigungAufgabeFaelligTitel": {
+    "placeholders": { "titel": { "type": "String" } }
+  },
+  "benachrichtigungAufgabeFaelligKoerper": "Geplant für {uhrzeit}",
+  "@benachrichtigungAufgabeFaelligKoerper": {
+    "placeholders": { "uhrzeit": { "type": "String" } }
+  },
+  "exportDruckTitel": "Wochenplan",
+  "exportDruckErstelltAm": "Erstellt am {datum}",
+
+  "assistentOeffnen": "Assistent öffnen",
+  "assistentSchliessen": "Schließen",
+  "assistentPlatzhalterHinweis": "Der Sprach-/LLM-Assistent ist für eine spätere Version geplant (Phase 8) — vollständig offline, zweisprachig. Noch nicht aktiv.",
+  "assistentEingabePlatzhalter": "Nachricht eingeben…",
+  "assistentMikrofonHinweis": "Spracheingabe noch nicht verfügbar"
 }

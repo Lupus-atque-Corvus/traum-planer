@@ -104,6 +104,10 @@ flutter:
 
   generate: true
 
+  assets:
+    - assets/icon/app_icon.ico
+    - assets/icon/app_icon.png
+
   # Lokal gebündelte Schriftarten (kein google_fonts-Laufzeitabruf,
   # damit der erste Start ohne Internetverbindung funktioniert).
   fonts:

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/wiederholung_logik.dart';
+import '../models/eintrag_status.dart';
+import 'database_provider.dart';
 
 /// Aktuelles Kalenderdatum (nur Datum, keine Uhrzeit) — aktualisiert sich
 /// automatisch bei Tageswechsel um Mitternacht (Phase 3, "Tageswechsel um
@@ -23,6 +25,16 @@ final heutigesDatumProvider = StreamProvider<DateTime>((ref) async* {
 /// Monatsansicht. Startet auf "heute", kann vor und zurück (auch in die
 /// Vergangenheit) bewegt werden.
 final ausgewaehltesDatumProvider = StateProvider<DateTime>((ref) => nurDatum(DateTime.now()));
+
+/// Noch offene, für heute fällige Vorkommen mit Uhrzeit — Grundlage für die
+/// Erinnerungsbenachrichtigungen (Phase 6).
+final heuteOffeneVorkommenProvider = StreamProvider.autoDispose((ref) {
+  final repo = ref.watch(vorkommenRepositoryProvider);
+  final heute = ref.watch(heutigesDatumProvider).valueOrNull ?? nurDatum(DateTime.now());
+  return repo
+      .beobachteZeitraum(heute, heute)
+      .map((liste) => liste.where((v) => v.status == EintragStatus.offen).toList());
+});
 
 DateTime montagDerWoche(DateTime datum) => datum.subtract(Duration(days: datum.weekday - 1));
 

@@ -104,5 +104,26 @@
   "trayHeuteAnzeigen": "Show today",
   "trayBeenden": "Quit",
 
-  "assistentTitel": "Assistant"
+  "assistentTitel": "Assistant",
+
+  "einstellungenAutostart": "Start with the system",
+  "einstellungenBenachrichtigungen": "Notifications",
+  "einstellungenBenachrichtigungenVorlauf": "Remind {minuten} minutes before",
+  "einstellungenExport": "Export & Backup",
+  "einstellungenExportHtml": "Export as printable HTML",
+  "einstellungenExportJson": "Back up as JSON",
+  "einstellungenImportJson": "Restore from JSON",
+  "einstellungenImportBestaetigung": "Importing will overwrite all existing data. Continue?",
+  "einstellungenExportErfolgreich": "Export saved successfully.",
+  "einstellungenImportErfolgreich": "Data restored successfully.",
+  "benachrichtigungAufgabeFaelligTitel": "{titel} is due",
+  "benachrichtigungAufgabeFaelligKoerper": "Scheduled for {uhrzeit}",
+  "exportDruckTitel": "Weekly plan",
+  "exportDruckErstelltAm": "Created on {datum}",
+
+  "assistentOeffnen": "Open assistant",
+  "assistentSchliessen": "Close",
+  "assistentPlatzhalterHinweis": "The voice/LLM assistant is planned for a later version (Phase 8) — fully offline, bilingual. Not active yet.",
+  "assistentEingabePlatzhalter": "Type a message…",
+  "assistentMikrofonHinweis": "Voice input not available yet"
 }

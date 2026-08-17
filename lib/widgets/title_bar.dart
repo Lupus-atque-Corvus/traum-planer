@@ -1,21 +1,24 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../providers/assistent_provider.dart';
 import '../theme/tokens.dart';
 
 /// Eigene 40px-Titelleiste, siehe Design-Doc "Gemeinsames App-Gerüst":
-/// links App-Name, rechts die drei Standard-Fenstersteuerungen.
-class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
+/// links App-Name, rechts die drei Standard-Fenstersteuerungen. Trägt
+/// außerdem den Auslöser für das Assistent-Panel (Bildschirm 10).
+class AppTitleBar extends ConsumerWidget implements PreferredSizeWidget {
   const AppTitleBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(AppLayout.titleBarHeight);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final istDesktop = Platform.isWindows || Platform.isLinux;
 
@@ -41,6 +44,11 @@ class AppTitleBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
+          ),
+          _FensterKnopf(
+            icon: Icons.smart_toy_outlined,
+            tooltip: l10n.assistentOeffnen,
+            onTap: () => ref.read(assistentPanelSichtbarProvider.notifier).update((v) => !v),
           ),
           if (istDesktop) ...[
             _FensterKnopf(

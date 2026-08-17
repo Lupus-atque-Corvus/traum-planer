@@ -286,4 +286,73 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get assistentTitel => 'Assistent';
+
+  @override
+  String get einstellungenAutostart => 'Mit dem System starten';
+
+  @override
+  String get einstellungenBenachrichtigungen => 'Benachrichtigungen';
+
+  @override
+  String einstellungenBenachrichtigungenVorlauf(int minuten) {
+    return 'Erinnerung $minuten Minuten vorher';
+  }
+
+  @override
+  String get einstellungenExport => 'Export & Sicherung';
+
+  @override
+  String get einstellungenExportHtml => 'Als druckbares HTML exportieren';
+
+  @override
+  String get einstellungenExportJson => 'Als JSON sichern';
+
+  @override
+  String get einstellungenImportJson => 'Aus JSON wiederherstellen';
+
+  @override
+  String get einstellungenImportBestaetigung =>
+      'Import überschreibt alle vorhandenen Daten. Fortfahren?';
+
+  @override
+  String get einstellungenExportErfolgreich =>
+      'Export erfolgreich gespeichert.';
+
+  @override
+  String get einstellungenImportErfolgreich =>
+      'Daten erfolgreich wiederhergestellt.';
+
+  @override
+  String benachrichtigungAufgabeFaelligTitel(String titel) {
+    return '$titel steht an';
+  }
+
+  @override
+  String benachrichtigungAufgabeFaelligKoerper(String uhrzeit) {
+    return 'Geplant für $uhrzeit';
+  }
+
+  @override
+  String get exportDruckTitel => 'Wochenplan';
+
+  @override
+  String exportDruckErstelltAm(Object datum) {
+    return 'Erstellt am $datum';
+  }
+
+  @override
+  String get assistentOeffnen => 'Assistent öffnen';
+
+  @override
+  String get assistentSchliessen => 'Schließen';
+
+  @override
+  String get assistentPlatzhalterHinweis =>
+      'Der Sprach-/LLM-Assistent ist für eine spätere Version geplant (Phase 8) — vollständig offline, zweisprachig. Noch nicht aktiv.';
+
+  @override
+  String get assistentEingabePlatzhalter => 'Nachricht eingeben…';
+
+  @override
+  String get assistentMikrofonHinweis => 'Spracheingabe noch nicht verfügbar';
 }

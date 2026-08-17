@@ -286,4 +286,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get assistentTitel => 'Assistant';
+
+  @override
+  String get einstellungenAutostart => 'Start with the system';
+
+  @override
+  String get einstellungenBenachrichtigungen => 'Notifications';
+
+  @override
+  String einstellungenBenachrichtigungenVorlauf(int minuten) {
+    return 'Remind $minuten minutes before';
+  }
+
+  @override
+  String get einstellungenExport => 'Export & Backup';
+
+  @override
+  String get einstellungenExportHtml => 'Export as printable HTML';
+
+  @override
+  String get einstellungenExportJson => 'Back up as JSON';
+
+  @override
+  String get einstellungenImportJson => 'Restore from JSON';
+
+  @override
+  String get einstellungenImportBestaetigung =>
+      'Importing will overwrite all existing data. Continue?';
+
+  @override
+  String get einstellungenExportErfolgreich => 'Export saved successfully.';
+
+  @override
+  String get einstellungenImportErfolgreich => 'Data restored successfully.';
+
+  @override
+  String benachrichtigungAufgabeFaelligTitel(String titel) {
+    return '$titel is due';
+  }
+
+  @override
+  String benachrichtigungAufgabeFaelligKoerper(String uhrzeit) {
+    return 'Scheduled for $uhrzeit';
+  }
+
+  @override
+  String get exportDruckTitel => 'Weekly plan';
+
+  @override
+  String exportDruckErstelltAm(Object datum) {
+    return 'Created on $datum';
+  }
+
+  @override
+  String get assistentOeffnen => 'Open assistant';
+
+  @override
+  String get assistentSchliessen => 'Close';
+
+  @override
+  String get assistentPlatzhalterHinweis =>
+      'The voice/LLM assistant is planned for a later version (Phase 8) — fully offline, bilingual. Not active yet.';
+
+  @override
+  String get assistentEingabePlatzhalter => 'Type a message…';
+
+  @override
+  String get assistentMikrofonHinweis => 'Voice input not available yet';
 }

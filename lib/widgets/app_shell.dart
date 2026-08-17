@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../l10n/gen/app_localizations.dart';
+import '../providers/assistent_provider.dart';
 import '../router/app_router.dart';
 import '../theme/tokens.dart';
+import 'assistent_panel.dart';
 import 'dialogs/termin_dialog.dart';
 import 'sidebar.dart';
 import 'title_bar.dart';
@@ -24,6 +26,7 @@ class AppShell extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final pfad = GoRouterState.of(context).uri.toString();
     final zeigeTerminFab = pfad != AppRoutes.einstellungen && pfad != AppRoutes.plaene;
+    final assistentSichtbar = ref.watch(assistentPanelSichtbarProvider);
 
     return Scaffold(
       backgroundColor: AppColors.bgBase,
@@ -45,6 +48,12 @@ class AppShell extends ConsumerWidget {
                       onPressed: () => terminDialogZeigen(context, ref),
                       child: const Icon(Icons.add),
                     ),
+                  ),
+                if (assistentSichtbar)
+                  Positioned(
+                    right: AppSpacing.xl,
+                    bottom: zeigeTerminFab ? AppSpacing.xl + 72 : AppSpacing.xl,
+                    child: const AssistentPanel(),
                   ),
               ],
             ),

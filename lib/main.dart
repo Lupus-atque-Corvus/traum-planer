@@ -3,11 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'l10n/gen/app_localizations.dart';
+import 'providers/benachrichtigung_provider.dart';
 import 'providers/einstellungen_provider.dart';
+import 'providers/kalender_provider.dart';
 import 'router/app_router.dart';
+import 'services/tray_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -26,6 +30,12 @@ Future<void> main() async {
       await windowManager.show();
       await windowManager.focus();
     });
+    await TrayService.instance.init();
+
+    launchAtStartup.setup(
+      appName: 'TRAUM Planer',
+      appPath: Platform.resolvedExecutable,
+    );
   }
 
   runApp(const ProviderScope(child: TraumPlanerApp()));
@@ -67,6 +77,45 @@ class TraumPlanerApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: appRouter,
+      builder: (context, child) => _HintergrunddiensteBootstrap(child: child),
     );
+  }
+}
+
+/// Hält Tray-Menü-Texte und geplante Erinnerungsbenachrichtigungen mit den
+/// aktuellen Daten/Einstellungen synchron. Rein technischer Wrapper ohne
+/// eigenes UI — rendert nur [child] durch.
+class _HintergrunddiensteBootstrap extends ConsumerStatefulWidget {
+  final Widget? child;
+  const _HintergrunddiensteBootstrap({required this.child});
+
+  @override
+  ConsumerState<_HintergrunddiensteBootstrap> createState() => _HintergrunddiensteBootstrapState();
+}
+
+class _HintergrunddiensteBootstrapState extends ConsumerState<_HintergrunddiensteBootstrap> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (Platform.isWindows || Platform.isLinux) {
+      TrayService.instance.menueAktualisieren(AppLocalizations.of(context));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final ist24h = (ref.watch(zeitformatProvider).valueOrNull ?? '24h') == '24h';
+    final vorlauf = ref.watch(benachrichtigungVorlaufProvider).valueOrNull ?? 10;
+    final offeneHeute = ref.watch(heuteOffeneVorkommenProvider).valueOrNull ?? const [];
+
+    ref.watch(benachrichtigungServiceProvider).aktualisieren(
+          offeneVorkommenHeute: offeneHeute,
+          vorlaufMinuten: vorlauf,
+          ist24h: ist24h,
+          l10n: l10n,
+        );
+
+    return widget.child ?? const SizedBox.shrink();
   }
 }
