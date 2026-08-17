@@ -144,7 +144,9 @@
 
   "assistentOeffnen": "Assistent öffnen",
   "assistentSchliessen": "Schließen",
-  "assistentPlatzhalterHinweis": "Der Sprach-/LLM-Assistent ist für eine spätere Version geplant (Phase 8) — vollständig offline, zweisprachig. Noch nicht aktiv.",
   "assistentEingabePlatzhalter": "Nachricht eingeben…",
-  "assistentMikrofonHinweis": "Spracheingabe noch nicht verfügbar"
+  "assistentMikrofonHinweis": "Spracheingabe",
+  "assistentTtsEin": "Antworten vorlesen: an",
+  "assistentTtsAus": "Antworten vorlesen: aus",
+  "assistentOllamaNichtErreichbar": "Der lokale Assistent (Ollama) läuft gerade nicht. Die App bleibt ohne ihn voll nutzbar."
 }

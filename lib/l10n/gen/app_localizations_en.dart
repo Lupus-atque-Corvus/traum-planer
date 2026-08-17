@@ -345,12 +345,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assistentSchliessen => 'Close';
 
   @override
-  String get assistentPlatzhalterHinweis =>
-      'The voice/LLM assistant is planned for a later version (Phase 8) — fully offline, bilingual. Not active yet.';
-
-  @override
   String get assistentEingabePlatzhalter => 'Type a message…';
 
   @override
-  String get assistentMikrofonHinweis => 'Voice input not available yet';
+  String get assistentMikrofonHinweis => 'Voice input';
+
+  @override
+  String get assistentTtsEin => 'Read replies aloud: on';
+
+  @override
+  String get assistentTtsAus => 'Read replies aloud: off';
+
+  @override
+  String get assistentOllamaNichtErreichbar =>
+      'The local assistant (Ollama) isn\'t running right now. The app stays fully usable without it.';
 }

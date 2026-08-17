@@ -68,6 +68,13 @@ dependencies:
   # Reaktive Streams kombinieren (Vorkommen-Berechnung aus mehreren Tabellen)
   rxdart: ^0.28.0
 
+  # Lokales STT (Phase 8): whisper.cpp-Bindings + Mikrofonaufnahme
+  whisper_ggml: ^2.6.0
+  record: ^7.1.1
+
+  # HTTP-Client für die lokale Ollama-API (Phase 8, LLM)
+  http: ^1.6.0
+
   # JSON-Export/Import (Phase 6)
   file_selector: ^1.0.3
 
@@ -107,6 +114,7 @@ flutter:
   assets:
     - assets/icon/app_icon.ico
     - assets/icon/app_icon.png
+    - assets/whisper/ggml-small.bin
 
   # Lokal gebündelte Schriftarten (kein google_fonts-Laufzeitabruf,
   # damit der erste Start ohne Internetverbindung funktioniert).

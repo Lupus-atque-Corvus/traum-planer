@@ -31,3 +31,8 @@ Thumbs.db
 # Local database (dev)
 *.sqlite
 *.sqlite-journal
+
+# Whisper-Modellgewichte (Phase 8): zu groß für normales Git, siehe
+# README für den Fetch-Befehl. Wird beim Installer-Build eingebunden,
+# nicht über Git versioniert.
+assets/whisper/*.bin

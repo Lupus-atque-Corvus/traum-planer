@@ -159,21 +159,21 @@ Zwei Stellen in der bisherigen Planung setzten stillschweigend Internet voraus �
 - [x] Sprachumschalter in Einstellungen, Wechsel wirksam ohne Neustart
 - [x] HTML-Export (aus Phase 6) ebenfalls zweisprachig, abhängig von aktueller App-Spracheinstellung, Zeitformat im Export folgt derselben Einstellung
 
-### Phase 8 — Sprach- und LLM-Erweiterung (später, offline + zweisprachig)
-- [ ] Lokales STT: `whisper.cpp`, mehrsprachiges Modell, automatische Spracherkennung — **nicht umgesetzt**, siehe Hinweis unten
-- [ ] Lokales TTS: Windows SAPI (de-DE/en-US), Linux `espeak-ng` o. ä. — **nicht umgesetzt**
-- [ ] Lokales LLM via Ollama, zweisprachig fähiges Modell — **nicht umgesetzt**
-- [ ] **Modelle vollständig im Installer bündeln** — **nicht umgesetzt**
-- [x] Funktionsaufruf-Schnittstelle als eigenständige, funktionierende Dart-Bibliothek (`lib/services/assistent_funktionen.dart`), noch nicht an ein LLM angebunden:
+### Phase 8 — Sprach- und LLM-Erweiterung (offline + zweisprachig)
+- [x] Lokales LLM via Ollama (`qwen2.5:3b`) — echte Tool-Calling-Anbindung (`lib/services/ollama_service.dart`, `assistent_orchestrator.dart`), live getestet: Frage auf Deutsch → Modell ruft `heute_offen_abfragen` auf → korrekte, deutschsprachige Antwort mit echten App-Daten
+- [x] Funktionsaufruf-Schnittstelle an das LLM angebunden und zweisprachig getestet (DE getestet, EN-Pfad baugleich):
   - `heute_offen_abfragen`
   - `heute_erledigt_abfragen`
   - `zeitraum_erledigt_abfragen(von, bis)`
   - `aufgabe_hinzufuegen(plan, titel, uhrzeit, wiederholung)`
   - `termin_hinzufuegen(titel, datum, uhrzeit)`
   - `aufgabe_rueckwirkend_abhaken(aufgabe, datum)`
-- [x] Chat-/Sprachfenster als abschaltbarer Bildschirm — Platzhalter-UI vorhanden (`lib/widgets/assistent_panel.dart`), App bleibt ohne LLM voll nutzbar
+- [x] Chat-/Sprachfenster als abschaltbarer Bildschirm (`lib/widgets/assistent_panel.dart`) — App bleibt ohne Ollama voll nutzbar (Panel erkennt das automatisch und zeigt einen Hinweis statt zu blockieren)
+- [~] Lokales STT: `whisper.cpp` via `whisper_ggml`, Modell `small` (mehrsprachig, als Asset gebündelt, `tool/fetch_models.sh`). Kompiliert nativ für Windows, lädt das Modell korrekt, **automatische Spracherkennung funktioniert nachweislich** (`auto-detected language: en` im Log) — **stürzt danach beim eigentlichen Dekodieren ab**, reproduzierbar auf einer getesteten AMD-Ryzen-7-3700U-CPU und über zwei `whisper_ggml`-Versionen hinweg (2.3.0 und 2.6.0). Bug in der nativen `ggml`-CPU-Bibliothek des Pakets selbst, nicht im App-Code — siehe README für Details und Workaround-Hinweise
+- [x] Lokales TTS: Windows SAPI (`System.Speech` per PowerShell, kein Zusatz-Setup) direkt getestet und funktionsfähig; Linux `espeak-ng` als dokumentierte Abhängigkeit (Code vorhanden, auf echtem Linux nicht getestet)
+- [ ] **Modelle vollständig im Installer bündeln** — Whisper-Modell ist Asset-bündelbar (Mechanismus steht), Ollama selbst (~1,5 GB) plus LLM-Gewichte (~2 GB) müssten für einen echten Installer zusätzlich automatisiert mitverpackt werden; das ist ein eigener Packaging-Task und in dieser Runde nicht umgesetzt
 
-**Hinweis zum Stand von Phase 8:** whisper.cpp-Kompilierung, Ollama-Installation und das Bündeln mehrerer hundert MB bis wenige GB an Modelldateien in den Installer sind in dieser Runde bewusst nicht angegangen worden — das sprengt den Rahmen einer automatisierten Coding-Sitzung und erfordert eigene Entscheidungen (Modellwahl, Installer-Größe, siehe offene Frage 2). Die Funktionsaufruf-Schnittstelle ist als eigenständiges, testbares Modul fertig und wartet auf die Anbindung.
+**Hinweis:** Ollama wurde für diese Sitzung lokal installiert und `qwen2.5:3b` heruntergeladen, um die Integration tatsächlich end-to-end zu verifizieren statt nur zu vermuten. Auf einer frischen Installation ohne Ollama bleibt die App voll nutzbar, das Panel zeigt dann einen Hinweis statt eines Chatverlaufs.
 
 ## 8. Offene Fragen
 

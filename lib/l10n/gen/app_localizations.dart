@@ -728,12 +728,6 @@ abstract class AppLocalizations {
   /// **'Schließen'**
   String get assistentSchliessen;
 
-  /// No description provided for @assistentPlatzhalterHinweis.
-  ///
-  /// In de, this message translates to:
-  /// **'Der Sprach-/LLM-Assistent ist für eine spätere Version geplant (Phase 8) — vollständig offline, zweisprachig. Noch nicht aktiv.'**
-  String get assistentPlatzhalterHinweis;
-
   /// No description provided for @assistentEingabePlatzhalter.
   ///
   /// In de, this message translates to:
@@ -743,8 +737,26 @@ abstract class AppLocalizations {
   /// No description provided for @assistentMikrofonHinweis.
   ///
   /// In de, this message translates to:
-  /// **'Spracheingabe noch nicht verfügbar'**
+  /// **'Spracheingabe'**
   String get assistentMikrofonHinweis;
+
+  /// No description provided for @assistentTtsEin.
+  ///
+  /// In de, this message translates to:
+  /// **'Antworten vorlesen: an'**
+  String get assistentTtsEin;
+
+  /// No description provided for @assistentTtsAus.
+  ///
+  /// In de, this message translates to:
+  /// **'Antworten vorlesen: aus'**
+  String get assistentTtsAus;
+
+  /// No description provided for @assistentOllamaNichtErreichbar.
+  ///
+  /// In de, this message translates to:
+  /// **'Der lokale Assistent (Ollama) läuft gerade nicht. Die App bleibt ohne ihn voll nutzbar.'**
+  String get assistentOllamaNichtErreichbar;
 }
 
 class _AppLocalizationsDelegate

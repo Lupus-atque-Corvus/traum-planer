@@ -123,7 +123,9 @@
 
   "assistentOeffnen": "Open assistant",
   "assistentSchliessen": "Close",
-  "assistentPlatzhalterHinweis": "The voice/LLM assistant is planned for a later version (Phase 8) — fully offline, bilingual. Not active yet.",
   "assistentEingabePlatzhalter": "Type a message…",
-  "assistentMikrofonHinweis": "Voice input not available yet"
+  "assistentMikrofonHinweis": "Voice input",
+  "assistentTtsEin": "Read replies aloud: on",
+  "assistentTtsAus": "Read replies aloud: off",
+  "assistentOllamaNichtErreichbar": "The local assistant (Ollama) isn't running right now. The app stays fully usable without it."
 }
