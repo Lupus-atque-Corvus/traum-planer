@@ -36,3 +36,10 @@ Thumbs.db
 # README für den Fetch-Befehl. Wird beim Installer-Build eingebunden,
 # nicht über Git versioniert.
 assets/whisper/*.bin
+
+# Installer-Build-Ausgabe und die (mehrere GB großen) Ollama-Vendor-Dateien,
+# siehe installer/vendor/ollama/README.md für die Befüll-Anleitung.
+installer/output/
+installer/vendor/ollama/*.exe
+installer/vendor/ollama/Modelfile
+installer/vendor/ollama/blobs/
