@@ -53,10 +53,20 @@ class PlaeneScreen extends ConsumerWidget {
                         style: const TextStyle(color: AppColors.textTertiary)),
                   );
                 }
-                return ListView.separated(
+                return ReorderableListView.builder(
+                  buildDefaultDragHandles: false,
                   itemCount: plaene.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
-                  itemBuilder: (context, i) => _PlanKarte(plan: plaene[i]),
+                  itemBuilder: (context, i) => Padding(
+                    key: ValueKey('plan-${plaene[i].id}'),
+                    padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+                    child: _PlanKarte(plan: plaene[i], reorderIndex: i),
+                  ),
+                  onReorderItem: (alt, neu) async {
+                    final reihenfolge = [for (final p in plaene) p.id];
+                    final id = reihenfolge.removeAt(alt);
+                    reihenfolge.insert(neu, id);
+                    await ref.read(databaseProvider).plaeneNeuSortieren(reihenfolge);
+                  },
                 );
               },
             ),
@@ -69,7 +79,8 @@ class PlaeneScreen extends ConsumerWidget {
 
 class _PlanKarte extends ConsumerWidget {
   final Plan plan;
-  const _PlanKarte({required this.plan});
+  final int reorderIndex;
+  const _PlanKarte({required this.plan, required this.reorderIndex});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -88,6 +99,13 @@ class _PlanKarte extends ConsumerWidget {
         children: [
           Row(
             children: [
+              ReorderableDragStartListener(
+                index: reorderIndex,
+                child: const Padding(
+                  padding: EdgeInsets.only(right: AppSpacing.sm),
+                  child: Icon(Icons.drag_indicator, size: 18, color: AppColors.textTertiary),
+                ),
+              ),
               Container(
                 width: 4,
                 height: 20,
@@ -121,24 +139,23 @@ class _PlanKarte extends ConsumerWidget {
             error: (e, st) => Text('$e'),
             data: (aufgaben) {
               if (aufgaben.isEmpty) return const SizedBox.shrink();
-              return Column(
-                children: [
-                  for (final a in aufgaben)
-                    ListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(a.titel, style: const TextStyle(fontSize: 14)),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.edit_outlined, size: 16),
-                        onPressed: () => aufgabeDialogZeigen(
-                          context,
-                          ref,
-                          planId: plan.id,
-                          vorhandeneAufgabe: a,
-                        ),
-                      ),
-                    ),
-                ],
+              return ReorderableListView.builder(
+                shrinkWrap: true,
+                primary: false,
+                buildDefaultDragHandles: false,
+                itemCount: aufgaben.length,
+                itemBuilder: (context, i) => _AufgabeZeile(
+                  key: ValueKey('aufgabe-${aufgaben[i].id}'),
+                  planId: plan.id,
+                  aufgabe: aufgaben[i],
+                  reorderIndex: i,
+                ),
+                onReorderItem: (alt, neu) async {
+                  final reihenfolge = [for (final a in aufgaben) a.id];
+                  final id = reihenfolge.removeAt(alt);
+                  reihenfolge.insert(neu, id);
+                  await ref.read(databaseProvider).aufgabenNeuSortieren(reihenfolge);
+                },
               );
             },
           ),
@@ -171,5 +188,40 @@ class _PlanKarte extends ConsumerWidget {
     if (bestaetigt == true) {
       await ref.read(databaseProvider).planLoeschen(plan.id);
     }
+  }
+}
+
+class _AufgabeZeile extends ConsumerWidget {
+  final int planId;
+  final Aufgabe aufgabe;
+  final int reorderIndex;
+
+  const _AufgabeZeile({
+    required super.key,
+    required this.planId,
+    required this.aufgabe,
+    required this.reorderIndex,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListTile(
+      dense: true,
+      contentPadding: EdgeInsets.zero,
+      leading: ReorderableDragStartListener(
+        index: reorderIndex,
+        child: const Icon(Icons.drag_indicator, size: 16, color: AppColors.textTertiary),
+      ),
+      title: Text(aufgabe.titel, style: const TextStyle(fontSize: 14)),
+      trailing: IconButton(
+        icon: const Icon(Icons.edit_outlined, size: 16),
+        onPressed: () => aufgabeDialogZeigen(
+          context,
+          ref,
+          planId: planId,
+          vorhandeneAufgabe: aufgabe,
+        ),
+      ),
+    );
   }
 }

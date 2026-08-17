@@ -56,7 +56,10 @@ class AppDatabase extends _$AppDatabase {
 
   // ---- Aufgaben ----
   Stream<List<Aufgabe>> aufgabenFuerPlanBeobachten(int planId) =>
-      (select(aufgaben)..where((t) => t.planId.equals(planId))).watch();
+      (select(aufgaben)
+            ..where((t) => t.planId.equals(planId))
+            ..orderBy([(t) => OrderingTerm(expression: t.sortierindex)]))
+          .watch();
 
   Future<List<Aufgabe>> alleAufgabenLaden() => select(aufgaben).get();
 
@@ -69,6 +72,28 @@ class AppDatabase extends _$AppDatabase {
       into(aufgaben).insertOnConflictUpdate(aufgabe);
 
   Future<void> aufgabeLoeschen(int id) => (delete(aufgaben)..where((t) => t.id.equals(id))).go();
+
+  /// Schreibt neue Sortierindizes (0, 1, 2, …) in der übergebenen Reihenfolge
+  /// — Grundlage für Drag & Drop in Plänen und Aufgaben (Phase 5).
+  Future<void> plaeneNeuSortieren(List<int> planIdsInReihenfolge) => batch((b) {
+        for (var i = 0; i < planIdsInReihenfolge.length; i++) {
+          b.update(
+            plaene,
+            PlaeneCompanion(sortierindex: Value(i)),
+            where: (t) => t.id.equals(planIdsInReihenfolge[i]),
+          );
+        }
+      });
+
+  Future<void> aufgabenNeuSortieren(List<int> aufgabeIdsInReihenfolge) => batch((b) {
+        for (var i = 0; i < aufgabeIdsInReihenfolge.length; i++) {
+          b.update(
+            aufgaben,
+            AufgabenCompanion(sortierindex: Value(i)),
+            where: (t) => t.id.equals(aufgabeIdsInReihenfolge[i]),
+          );
+        }
+      });
 
   // ---- Erledigt ----
   Stream<List<ErledigtEintrag>> erledigtImZeitraumBeobachten(DateTime von, DateTime bis) =>
