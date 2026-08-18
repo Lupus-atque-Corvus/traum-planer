@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../providers/assistent_provider.dart';
+import '../providers/einstellungen_provider.dart';
 import '../router/app_router.dart';
 import '../theme/tokens.dart';
 import 'assistent_panel.dart';
@@ -26,7 +27,8 @@ class AppShell extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final pfad = GoRouterState.of(context).uri.toString();
     final zeigeTerminFab = pfad != AppRoutes.einstellungen && pfad != AppRoutes.plaene;
-    final assistentSichtbar = ref.watch(assistentPanelSichtbarProvider);
+    final textChatPanelAktiv = ref.watch(textChatPanelAktivProvider).valueOrNull ?? true;
+    final assistentSichtbar = textChatPanelAktiv && ref.watch(assistentPanelSichtbarProvider);
 
     return Scaffold(
       backgroundColor: AppColors.bgBase,

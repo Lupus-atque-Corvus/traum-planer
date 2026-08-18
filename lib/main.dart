@@ -10,9 +10,12 @@ import 'l10n/gen/app_localizations.dart';
 import 'providers/benachrichtigung_provider.dart';
 import 'providers/einstellungen_provider.dart';
 import 'providers/kalender_provider.dart';
+import 'providers/wakeword_overlay_provider.dart';
+import 'providers/wakeword_provider.dart';
 import 'router/app_router.dart';
 import 'services/tray_service.dart';
 import 'theme/app_theme.dart';
+import 'widgets/wakeword_overlay.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -116,6 +119,15 @@ class _HintergrunddiensteBootstrapState extends ConsumerState<_Hintergrunddienst
           l10n: l10n,
         );
 
-    return widget.child ?? const SizedBox.shrink();
+    final sollLauschen = ref.watch(wakeWortSollLauschenProvider);
+    ref.watch(wakeWordLifecycleProvider).synchronisieren(sollLauschen);
+    final ueberlagerungOffen = ref.watch(wakeWordUeberlagerungProvider).istOffen;
+
+    return Stack(
+      children: [
+        widget.child ?? const SizedBox.shrink(),
+        if (ueberlagerungOffen) const WakeWordUeberlagerung(),
+      ],
+    );
   }
 }

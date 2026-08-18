@@ -3,16 +3,19 @@ import 'dart:io';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../data/wiederholung_logik.dart';
 import '../l10n/gen/app_localizations.dart';
 import '../providers/database_provider.dart';
 import '../providers/einstellungen_provider.dart';
 import '../providers/kalender_provider.dart';
+import '../providers/wakeword_provider.dart';
 import '../services/backup_service.dart';
 import '../services/html_export_service.dart';
 import '../theme/app_theme.dart';
 import '../theme/tokens.dart';
+import '../widgets/dialogs/aktivierungswort_dialog.dart';
 
 class EinstellungenScreen extends ConsumerWidget {
   const EinstellungenScreen({super.key});
@@ -26,6 +29,15 @@ class EinstellungenScreen extends ConsumerWidget {
     final vorlauf = ref.watch(benachrichtigungVorlaufProvider).valueOrNull ?? 10;
     final controller = ref.watch(einstellungenControllerProvider);
     final istDesktop = Platform.isWindows || Platform.isLinux;
+
+    final aktivierungswortAktiv = ref.watch(aktivierungswortAktivProvider).valueOrNull ?? false;
+    final aktivierungswortVorhanden = ref.watch(aktivierungswortSamplesVorhandenProvider);
+    final aktivierungswortAufgenommenAm = ref.watch(aktivierungswortAufgenommenAmProvider).valueOrNull;
+    final aktivierungswortHintergrundModus =
+        ref.watch(aktivierungswortHintergrundModusProvider).valueOrNull ?? 'nurFenster';
+    final aktivierungswortEmpfindlichkeit =
+        ref.watch(aktivierungswortEmpfindlichkeitProvider).valueOrNull ?? 1.4;
+    final textChatPanelAktiv = ref.watch(textChatPanelAktivProvider).valueOrNull ?? true;
 
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.xxl),
@@ -92,6 +104,114 @@ class EinstellungenScreen extends ConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.add, size: 18),
                   onPressed: () => controller.benachrichtigungVorlaufSetzen((vorlauf + 5).clamp(0, 180)),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          _EinstellungsKarte(
+            titel: l10n.einstellungenAktivierungswort,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.einstellungenAktivierungswortBeschreibung,
+                  style: const TextStyle(fontSize: 12, color: AppColors.textTertiary, height: 1.4),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  aktivierungswortAufgenommenAm != null
+                      ? l10n.einstellungenAktivierungswortStatusVorhanden(
+                          DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
+                              .format(aktivierungswortAufgenommenAm),
+                        )
+                      : l10n.einstellungenAktivierungswortStatusFehlt,
+                  style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                Wrap(
+                  spacing: AppSpacing.sm,
+                  runSpacing: AppSpacing.sm,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: () => aktivierungswortDialogZeigen(context, ref),
+                      icon: const Icon(Icons.mic_none_outlined, size: 16),
+                      label: Text(
+                        aktivierungswortVorhanden
+                            ? l10n.einstellungenAktivierungswortNeuAufnehmen
+                            : l10n.einstellungenAktivierungswortAufnehmen,
+                      ),
+                    ),
+                    if (aktivierungswortVorhanden)
+                      OutlinedButton.icon(
+                        onPressed: () => _aktivierungswortLoeschen(ref),
+                        style: OutlinedButton.styleFrom(foregroundColor: AppColors.destructive),
+                        icon: const Icon(Icons.delete_outline, size: 16),
+                        label: Text(l10n.einstellungenAktivierungswortLoeschen),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Row(
+                  children: [
+                    Expanded(child: Text(l10n.einstellungenAktivierungswortAktiv)),
+                    Switch(
+                      value: aktivierungswortAktiv,
+                      activeTrackColor: AppColors.brandPrimary,
+                      onChanged: aktivierungswortVorhanden
+                          ? (v) => controller.aktivierungswortAktivSetzen(v)
+                          : null,
+                    ),
+                  ],
+                ),
+                if (aktivierungswortAktiv) ...[
+                  const SizedBox(height: AppSpacing.md),
+                  Text(l10n.einstellungenAktivierungswortHintergrund, style: const TextStyle(fontSize: 12)),
+                  const SizedBox(height: AppSpacing.sm),
+                  SegmentedButton<String>(
+                    segments: [
+                      ButtonSegment(
+                        value: 'nurFenster',
+                        label: Text(l10n.einstellungenAktivierungswortHintergrundNurFenster),
+                      ),
+                      ButtonSegment(
+                        value: 'auchTray',
+                        label: Text(l10n.einstellungenAktivierungswortHintergrundAuchTray),
+                      ),
+                    ],
+                    selected: {aktivierungswortHintergrundModus},
+                    onSelectionChanged: (s) => controller.aktivierungswortHintergrundModusSetzen(s.first),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  Text(l10n.einstellungenAktivierungswortEmpfindlichkeit, style: const TextStyle(fontSize: 12)),
+                  Slider(
+                    value: aktivierungswortEmpfindlichkeit.clamp(1.0, 2.0),
+                    min: 1.0,
+                    max: 2.0,
+                    divisions: 20,
+                    activeColor: AppColors.brandPrimary,
+                    label: aktivierungswortEmpfindlichkeit.toStringAsFixed(2),
+                    onChanged: (v) => controller.aktivierungswortEmpfindlichkeitSetzen(v),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          _EinstellungsKarte(
+            titel: l10n.einstellungenTextchatPanel,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    l10n.einstellungenTextchatPanelBeschreibung,
+                    style: const TextStyle(fontSize: 12, color: AppColors.textTertiary, height: 1.4),
+                  ),
+                ),
+                Switch(
+                  value: textChatPanelAktiv,
+                  activeTrackColor: AppColors.brandPrimary,
+                  onChanged: (v) => controller.textChatPanelAktivSetzen(v),
                 ),
               ],
             ),
@@ -210,6 +330,13 @@ class EinstellungenScreen extends ConsumerWidget {
     final backup = BackupService(ref.read(databaseProvider));
     await backup.importieren(inhalt);
     if (context.mounted) _snack(context, l10n.einstellungenImportErfolgreich);
+  }
+
+  Future<void> _aktivierungswortLoeschen(WidgetRef ref) async {
+    await ref.read(einstellungenControllerProvider).aktivierungswortAktivSetzen(false);
+    await ref.read(einstellungenControllerProvider).aktivierungswortAufgenommenAmLoeschen();
+    await ref.read(wakeWordEnrollmentServiceProvider).probenLoeschen();
+    ref.read(wakeWordLifecycleProvider).vorlagenUngueltigMachen();
   }
 
   void _snack(BuildContext context, String text) {

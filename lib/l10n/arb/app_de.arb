@@ -148,5 +148,39 @@
   "assistentMikrofonHinweis": "Spracheingabe",
   "assistentTtsEin": "Antworten vorlesen: an",
   "assistentTtsAus": "Antworten vorlesen: aus",
-  "assistentOllamaNichtErreichbar": "Der lokale Assistent (Ollama) läuft gerade nicht. Die App bleibt ohne ihn voll nutzbar."
+  "assistentOllamaNichtErreichbar": "Der lokale Assistent (Ollama) läuft gerade nicht. Die App bleibt ohne ihn voll nutzbar.",
+
+  "einstellungenAktivierungswort": "Aktivierungswort",
+  "einstellungenAktivierungswortBeschreibung": "Sprich ein Wort ein, mit dem du den Assistenten aktivierst, ohne die Maus zu benutzen.",
+  "einstellungenAktivierungswortAktiv": "Aktivierungswort aktiv",
+  "einstellungenAktivierungswortAufnehmen": "Aufnehmen",
+  "einstellungenAktivierungswortNeuAufnehmen": "Neu aufnehmen",
+  "einstellungenAktivierungswortLoeschen": "Löschen",
+  "einstellungenAktivierungswortStatusFehlt": "Noch nicht aufgenommen",
+  "einstellungenAktivierungswortStatusVorhanden": "Aufgenommen am {datum}",
+  "@einstellungenAktivierungswortStatusVorhanden": {
+    "placeholders": { "datum": { "type": "String" } }
+  },
+  "einstellungenAktivierungswortSchritt": "Schritt {n} von 3: Sprich dein Aktivierungswort",
+  "@einstellungenAktivierungswortSchritt": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "einstellungenAktivierungswortAufnahmeStarten": "Aufnahme starten",
+  "einstellungenAktivierungswortAufnahmeStoppen": "Aufnahme beenden",
+  "einstellungenAktivierungswortZuKurz": "Zu kurz — bitte noch einmal versuchen.",
+  "einstellungenAktivierungswortWeiter": "Weiter",
+  "einstellungenAktivierungswortFertig": "Fertig",
+  "einstellungenAktivierungswortAbbrechen": "Abbrechen",
+  "einstellungenAktivierungswortHintergrund": "Hintergrund-Lauschen",
+  "einstellungenAktivierungswortHintergrundNurFenster": "Nur bei geöffnetem Fenster",
+  "einstellungenAktivierungswortHintergrundAuchTray": "Auch minimiert/im Tray",
+  "einstellungenAktivierungswortEmpfindlichkeit": "Empfindlichkeit",
+  "einstellungenTextchatPanel": "Textchat-Fenster",
+  "einstellungenTextchatPanelBeschreibung": "Das bisherige schwebende Chat-Fenster zusätzlich zum Aktivierungswort-Overlay anzeigen.",
+
+  "wakewortUeberlagerungHoert": "Ich höre zu…",
+  "wakewortUeberlagerungDenkt": "Einen Moment…",
+  "wakewortUeberlagerungNichtsVerstanden": "Nichts verstanden.",
+  "wakewortUeberlagerungSchliessenHinweis": "Esc oder Klick daneben zum Schließen",
+  "wakewortUeberlagerungFolgefrage": "Noch eine Frage?"
 }

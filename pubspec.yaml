@@ -75,6 +75,10 @@ dependencies:
   whisper_ggml: ^2.6.0
   record: ^7.1.1
 
+  # Leichte FFT/Mel-Merkmalsextraktion für die lokale Aktivierungswort-
+  # Erkennung (Wake Word, Muster-Matching gegen eigene Aufnahmen)
+  fftea: ^1.5.0
+
   # HTTP-Client für die lokale Ollama-API (Phase 8, LLM)
   http: ^1.6.0
 

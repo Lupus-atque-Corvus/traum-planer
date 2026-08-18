@@ -757,6 +757,162 @@ abstract class AppLocalizations {
   /// In de, this message translates to:
   /// **'Der lokale Assistent (Ollama) läuft gerade nicht. Die App bleibt ohne ihn voll nutzbar.'**
   String get assistentOllamaNichtErreichbar;
+
+  /// No description provided for @einstellungenAktivierungswort.
+  ///
+  /// In de, this message translates to:
+  /// **'Aktivierungswort'**
+  String get einstellungenAktivierungswort;
+
+  /// No description provided for @einstellungenAktivierungswortBeschreibung.
+  ///
+  /// In de, this message translates to:
+  /// **'Sprich ein Wort ein, mit dem du den Assistenten aktivierst, ohne die Maus zu benutzen.'**
+  String get einstellungenAktivierungswortBeschreibung;
+
+  /// No description provided for @einstellungenAktivierungswortAktiv.
+  ///
+  /// In de, this message translates to:
+  /// **'Aktivierungswort aktiv'**
+  String get einstellungenAktivierungswortAktiv;
+
+  /// No description provided for @einstellungenAktivierungswortAufnehmen.
+  ///
+  /// In de, this message translates to:
+  /// **'Aufnehmen'**
+  String get einstellungenAktivierungswortAufnehmen;
+
+  /// No description provided for @einstellungenAktivierungswortNeuAufnehmen.
+  ///
+  /// In de, this message translates to:
+  /// **'Neu aufnehmen'**
+  String get einstellungenAktivierungswortNeuAufnehmen;
+
+  /// No description provided for @einstellungenAktivierungswortLoeschen.
+  ///
+  /// In de, this message translates to:
+  /// **'Löschen'**
+  String get einstellungenAktivierungswortLoeschen;
+
+  /// No description provided for @einstellungenAktivierungswortStatusFehlt.
+  ///
+  /// In de, this message translates to:
+  /// **'Noch nicht aufgenommen'**
+  String get einstellungenAktivierungswortStatusFehlt;
+
+  /// No description provided for @einstellungenAktivierungswortStatusVorhanden.
+  ///
+  /// In de, this message translates to:
+  /// **'Aufgenommen am {datum}'**
+  String einstellungenAktivierungswortStatusVorhanden(String datum);
+
+  /// No description provided for @einstellungenAktivierungswortSchritt.
+  ///
+  /// In de, this message translates to:
+  /// **'Schritt {n} von 3: Sprich dein Aktivierungswort'**
+  String einstellungenAktivierungswortSchritt(int n);
+
+  /// No description provided for @einstellungenAktivierungswortAufnahmeStarten.
+  ///
+  /// In de, this message translates to:
+  /// **'Aufnahme starten'**
+  String get einstellungenAktivierungswortAufnahmeStarten;
+
+  /// No description provided for @einstellungenAktivierungswortAufnahmeStoppen.
+  ///
+  /// In de, this message translates to:
+  /// **'Aufnahme beenden'**
+  String get einstellungenAktivierungswortAufnahmeStoppen;
+
+  /// No description provided for @einstellungenAktivierungswortZuKurz.
+  ///
+  /// In de, this message translates to:
+  /// **'Zu kurz — bitte noch einmal versuchen.'**
+  String get einstellungenAktivierungswortZuKurz;
+
+  /// No description provided for @einstellungenAktivierungswortWeiter.
+  ///
+  /// In de, this message translates to:
+  /// **'Weiter'**
+  String get einstellungenAktivierungswortWeiter;
+
+  /// No description provided for @einstellungenAktivierungswortFertig.
+  ///
+  /// In de, this message translates to:
+  /// **'Fertig'**
+  String get einstellungenAktivierungswortFertig;
+
+  /// No description provided for @einstellungenAktivierungswortAbbrechen.
+  ///
+  /// In de, this message translates to:
+  /// **'Abbrechen'**
+  String get einstellungenAktivierungswortAbbrechen;
+
+  /// No description provided for @einstellungenAktivierungswortHintergrund.
+  ///
+  /// In de, this message translates to:
+  /// **'Hintergrund-Lauschen'**
+  String get einstellungenAktivierungswortHintergrund;
+
+  /// No description provided for @einstellungenAktivierungswortHintergrundNurFenster.
+  ///
+  /// In de, this message translates to:
+  /// **'Nur bei geöffnetem Fenster'**
+  String get einstellungenAktivierungswortHintergrundNurFenster;
+
+  /// No description provided for @einstellungenAktivierungswortHintergrundAuchTray.
+  ///
+  /// In de, this message translates to:
+  /// **'Auch minimiert/im Tray'**
+  String get einstellungenAktivierungswortHintergrundAuchTray;
+
+  /// No description provided for @einstellungenAktivierungswortEmpfindlichkeit.
+  ///
+  /// In de, this message translates to:
+  /// **'Empfindlichkeit'**
+  String get einstellungenAktivierungswortEmpfindlichkeit;
+
+  /// No description provided for @einstellungenTextchatPanel.
+  ///
+  /// In de, this message translates to:
+  /// **'Textchat-Fenster'**
+  String get einstellungenTextchatPanel;
+
+  /// No description provided for @einstellungenTextchatPanelBeschreibung.
+  ///
+  /// In de, this message translates to:
+  /// **'Das bisherige schwebende Chat-Fenster zusätzlich zum Aktivierungswort-Overlay anzeigen.'**
+  String get einstellungenTextchatPanelBeschreibung;
+
+  /// No description provided for @wakewortUeberlagerungHoert.
+  ///
+  /// In de, this message translates to:
+  /// **'Ich höre zu…'**
+  String get wakewortUeberlagerungHoert;
+
+  /// No description provided for @wakewortUeberlagerungDenkt.
+  ///
+  /// In de, this message translates to:
+  /// **'Einen Moment…'**
+  String get wakewortUeberlagerungDenkt;
+
+  /// No description provided for @wakewortUeberlagerungNichtsVerstanden.
+  ///
+  /// In de, this message translates to:
+  /// **'Nichts verstanden.'**
+  String get wakewortUeberlagerungNichtsVerstanden;
+
+  /// No description provided for @wakewortUeberlagerungSchliessenHinweis.
+  ///
+  /// In de, this message translates to:
+  /// **'Esc oder Klick daneben zum Schließen'**
+  String get wakewortUeberlagerungSchliessenHinweis;
+
+  /// No description provided for @wakewortUeberlagerungFolgefrage.
+  ///
+  /// In de, this message translates to:
+  /// **'Noch eine Frage?'**
+  String get wakewortUeberlagerungFolgefrage;
 }
 
 class _AppLocalizationsDelegate

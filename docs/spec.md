@@ -176,6 +176,14 @@ Zwei Stellen in der bisherigen Planung setzten stillschweigend Internet voraus �
 
 **Hinweis:** Ollama wurde für diese Sitzung lokal installiert und `qwen2.5:3b` heruntergeladen, um die Integration tatsächlich end-to-end zu verifizieren statt nur zu vermuten. Auf einer frischen Installation ohne Ollama bleibt die App voll nutzbar, das Panel zeigt dann einen Hinweis statt eines Chatverlaufs.
 
+### Phase 8b — Aktivierungswort (nachträgliche Erweiterung, nicht im ursprünglichen Plan)
+- [x] Eigene Log-Mel/DTW-Muster-Matching-Erkennung (`lib/services/wakeword/`) statt durchgehendem Whisper-Streaming — kontinuierliches Mikrofon-Sampling via `record`s PCM16-Stream, Merkmalsextraktion über `fftea`, ereignisgetriebener DTW-Abgleich gegen 3 selbst aufgenommene Proben, selbstkalibrierter Schwellwert
+- [x] Geführter 3-Schritte-Aufnahme-Dialog in den Einstellungen (`lib/widgets/dialogs/aktivierungswort_dialog.dart`)
+- [x] Neue Einstellungen: Aktivierungswort an/aus, Hintergrund-Lauschen (nur Fenster / auch Tray), Empfindlichkeit, Textchat-Fenster an/aus (unabhängig vom Overlay)
+- [x] Vollbild-Blur-Overlay (`lib/widgets/wakeword_overlay.dart`, erste `BackdropFilter`-Nutzung im Projekt) mit Zustandsautomat: Zuhören → Anfrage erkannt → Denken → Antwort + Sprachausgabe → kurzes Folgefenster ohne erneutes Aktivierungswort → automatisches Schließen; jederzeit per Klick/Esc manuell schließbar
+- [x] `flutter analyze` sauber, Debug-Build (`flutter build windows --debug`) kompiliert und läuft, Einstellungen-Karten und Aufnahme-Dialog live geprüft (Screenshot-Verifikation)
+- [ ] Erkennungsgenauigkeit (Schwellwert/Empfindlichkeit) mit echtem Mikrofon vom Nutzer noch nicht kalibriert — siehe Risiken im Plan `die-idee-vom-sprach-mighty-flamingo.md`
+
 ## 8. Offene Fragen
 
 Vier Punkte entschieden, einer verbleibt informativ ohne nötige Entscheidung:

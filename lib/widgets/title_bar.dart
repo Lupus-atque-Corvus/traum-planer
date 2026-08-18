@@ -7,6 +7,7 @@ import 'package:window_manager/window_manager.dart';
 
 import '../l10n/gen/app_localizations.dart';
 import '../providers/assistent_provider.dart';
+import '../providers/einstellungen_provider.dart';
 import '../theme/tokens.dart';
 
 /// Eigene 40px-Titelleiste, siehe Design-Doc "Gemeinsames App-Gerüst":
@@ -22,6 +23,7 @@ class AppTitleBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final istDesktop = Platform.isWindows || Platform.isLinux;
+    final textChatPanelAktiv = ref.watch(textChatPanelAktivProvider).valueOrNull ?? true;
 
     return Container(
       height: AppLayout.titleBarHeight,
@@ -48,11 +50,12 @@ class AppTitleBar extends ConsumerWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          _FensterKnopf(
-            icon: Icons.smart_toy_outlined,
-            tooltip: l10n.assistentOeffnen,
-            onTap: () => ref.read(assistentPanelSichtbarProvider.notifier).update((v) => !v),
-          ),
+          if (textChatPanelAktiv)
+            _FensterKnopf(
+              icon: Icons.smart_toy_outlined,
+              tooltip: l10n.assistentOeffnen,
+              onTap: () => ref.read(assistentPanelSichtbarProvider.notifier).update((v) => !v),
+            ),
           if (istDesktop) ...[
             _FensterKnopf(
               icon: Icons.remove,

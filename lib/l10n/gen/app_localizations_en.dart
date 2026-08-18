@@ -359,4 +359,92 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get assistentOllamaNichtErreichbar =>
       'The local assistant (Ollama) isn\'t running right now. The app stays fully usable without it.';
+
+  @override
+  String get einstellungenAktivierungswort => 'Wake word';
+
+  @override
+  String get einstellungenAktivierungswortBeschreibung =>
+      'Record a word to activate the assistant without touching the mouse.';
+
+  @override
+  String get einstellungenAktivierungswortAktiv => 'Wake word active';
+
+  @override
+  String get einstellungenAktivierungswortAufnehmen => 'Record';
+
+  @override
+  String get einstellungenAktivierungswortNeuAufnehmen => 'Re-record';
+
+  @override
+  String get einstellungenAktivierungswortLoeschen => 'Delete';
+
+  @override
+  String get einstellungenAktivierungswortStatusFehlt => 'Not recorded yet';
+
+  @override
+  String einstellungenAktivierungswortStatusVorhanden(String datum) {
+    return 'Recorded on $datum';
+  }
+
+  @override
+  String einstellungenAktivierungswortSchritt(int n) {
+    return 'Step $n of 3: say your wake word';
+  }
+
+  @override
+  String get einstellungenAktivierungswortAufnahmeStarten => 'Start recording';
+
+  @override
+  String get einstellungenAktivierungswortAufnahmeStoppen => 'Stop recording';
+
+  @override
+  String get einstellungenAktivierungswortZuKurz =>
+      'Too short — please try again.';
+
+  @override
+  String get einstellungenAktivierungswortWeiter => 'Next';
+
+  @override
+  String get einstellungenAktivierungswortFertig => 'Done';
+
+  @override
+  String get einstellungenAktivierungswortAbbrechen => 'Cancel';
+
+  @override
+  String get einstellungenAktivierungswortHintergrund => 'Background listening';
+
+  @override
+  String get einstellungenAktivierungswortHintergrundNurFenster =>
+      'Window open only';
+
+  @override
+  String get einstellungenAktivierungswortHintergrundAuchTray =>
+      'Also when minimized/in tray';
+
+  @override
+  String get einstellungenAktivierungswortEmpfindlichkeit => 'Sensitivity';
+
+  @override
+  String get einstellungenTextchatPanel => 'Text chat panel';
+
+  @override
+  String get einstellungenTextchatPanelBeschreibung =>
+      'Also show the previous floating chat panel alongside the wake-word overlay.';
+
+  @override
+  String get wakewortUeberlagerungHoert => 'Listening…';
+
+  @override
+  String get wakewortUeberlagerungDenkt => 'One moment…';
+
+  @override
+  String get wakewortUeberlagerungNichtsVerstanden => 'Didn\'t catch that.';
+
+  @override
+  String get wakewortUeberlagerungSchliessenHinweis =>
+      'Press Esc or click outside to close';
+
+  @override
+  String get wakewortUeberlagerungFolgefrage => 'Anything else?';
 }

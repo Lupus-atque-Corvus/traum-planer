@@ -45,6 +45,13 @@ class SttService {
 
   Future<bool> mikrofonBerechtigungVorhanden() => _recorder.hasPermission();
 
+  /// Lautstärke (dBFS) während einer laufenden Aufnahme, für die
+  /// automatische Stille-Erkennung des Aktivierungswort-Overlays (siehe
+  /// `wakeword_overlay_provider.dart`). Nutzt die bereits vorhandene
+  /// `record`-Funktion, keine eigene Implementierung nötig.
+  Stream<Amplitude> lautstaerkeStream({Duration intervall = const Duration(milliseconds: 150)}) =>
+      _recorder.onAmplitudeChanged(intervall);
+
   Future<void> aufnahmeStarten() async {
     await _modellSicherstellen();
     final verzeichnis = await getTemporaryDirectory();

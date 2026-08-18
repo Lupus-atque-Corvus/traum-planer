@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart' show ValueNotifier;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -17,6 +18,14 @@ class TrayService with TrayListener, WindowListener {
   static final TrayService instance = TrayService._();
 
   bool _wirklichBeenden = false;
+
+  /// Ob das Fenster gerade sichtbar ist (nicht minimiert/nicht in den Tray
+  /// versteckt). `window_manager` 0.4.3 hat kein `onWindowHide`/
+  /// `onWindowShow`-Callback — die Tray-Verstecken/Zeigen-Transition ist
+  /// nur bekannt, weil dieser Service sie selbst auslöst. Wird von
+  /// `fenster_provider.dart` beobachtet, um die Aktivierungswort-Erkennung
+  /// je nach Hintergrund-Modus zu starten/stoppen (siehe Plan, Abschnitt 6).
+  final fensterSichtbarNotifier = ValueNotifier<bool>(true);
 
   Future<void> init() async {
     if (!(Platform.isWindows || Platform.isLinux)) return;
@@ -55,6 +64,7 @@ class TrayService with TrayListener, WindowListener {
   void onTrayIconMouseDown() {
     windowManager.show();
     windowManager.focus();
+    fensterSichtbarNotifier.value = true;
   }
 
   @override
@@ -63,11 +73,13 @@ class TrayService with TrayListener, WindowListener {
       case 'oeffnen':
         windowManager.show();
         windowManager.focus();
+        fensterSichtbarNotifier.value = true;
         break;
       case 'heute':
         appRouter.go(AppRoutes.heute);
         windowManager.show();
         windowManager.focus();
+        fensterSichtbarNotifier.value = true;
         break;
       case 'beenden':
         _wirklichBeenden = true;
@@ -83,6 +95,17 @@ class TrayService with TrayListener, WindowListener {
       await windowManager.destroy();
       return;
     }
+    fensterSichtbarNotifier.value = false;
     await windowManager.hide();
+  }
+
+  @override
+  void onWindowMinimize() {
+    fensterSichtbarNotifier.value = false;
+  }
+
+  @override
+  void onWindowRestore() {
+    fensterSichtbarNotifier.value = true;
   }
 }

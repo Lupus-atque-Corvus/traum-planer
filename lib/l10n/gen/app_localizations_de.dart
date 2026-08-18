@@ -361,4 +361,93 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get assistentOllamaNichtErreichbar =>
       'Der lokale Assistent (Ollama) läuft gerade nicht. Die App bleibt ohne ihn voll nutzbar.';
+
+  @override
+  String get einstellungenAktivierungswort => 'Aktivierungswort';
+
+  @override
+  String get einstellungenAktivierungswortBeschreibung =>
+      'Sprich ein Wort ein, mit dem du den Assistenten aktivierst, ohne die Maus zu benutzen.';
+
+  @override
+  String get einstellungenAktivierungswortAktiv => 'Aktivierungswort aktiv';
+
+  @override
+  String get einstellungenAktivierungswortAufnehmen => 'Aufnehmen';
+
+  @override
+  String get einstellungenAktivierungswortNeuAufnehmen => 'Neu aufnehmen';
+
+  @override
+  String get einstellungenAktivierungswortLoeschen => 'Löschen';
+
+  @override
+  String get einstellungenAktivierungswortStatusFehlt =>
+      'Noch nicht aufgenommen';
+
+  @override
+  String einstellungenAktivierungswortStatusVorhanden(String datum) {
+    return 'Aufgenommen am $datum';
+  }
+
+  @override
+  String einstellungenAktivierungswortSchritt(int n) {
+    return 'Schritt $n von 3: Sprich dein Aktivierungswort';
+  }
+
+  @override
+  String get einstellungenAktivierungswortAufnahmeStarten => 'Aufnahme starten';
+
+  @override
+  String get einstellungenAktivierungswortAufnahmeStoppen => 'Aufnahme beenden';
+
+  @override
+  String get einstellungenAktivierungswortZuKurz =>
+      'Zu kurz — bitte noch einmal versuchen.';
+
+  @override
+  String get einstellungenAktivierungswortWeiter => 'Weiter';
+
+  @override
+  String get einstellungenAktivierungswortFertig => 'Fertig';
+
+  @override
+  String get einstellungenAktivierungswortAbbrechen => 'Abbrechen';
+
+  @override
+  String get einstellungenAktivierungswortHintergrund => 'Hintergrund-Lauschen';
+
+  @override
+  String get einstellungenAktivierungswortHintergrundNurFenster =>
+      'Nur bei geöffnetem Fenster';
+
+  @override
+  String get einstellungenAktivierungswortHintergrundAuchTray =>
+      'Auch minimiert/im Tray';
+
+  @override
+  String get einstellungenAktivierungswortEmpfindlichkeit => 'Empfindlichkeit';
+
+  @override
+  String get einstellungenTextchatPanel => 'Textchat-Fenster';
+
+  @override
+  String get einstellungenTextchatPanelBeschreibung =>
+      'Das bisherige schwebende Chat-Fenster zusätzlich zum Aktivierungswort-Overlay anzeigen.';
+
+  @override
+  String get wakewortUeberlagerungHoert => 'Ich höre zu…';
+
+  @override
+  String get wakewortUeberlagerungDenkt => 'Einen Moment…';
+
+  @override
+  String get wakewortUeberlagerungNichtsVerstanden => 'Nichts verstanden.';
+
+  @override
+  String get wakewortUeberlagerungSchliessenHinweis =>
+      'Esc oder Klick daneben zum Schließen';
+
+  @override
+  String get wakewortUeberlagerungFolgefrage => 'Noch eine Frage?';
 }
