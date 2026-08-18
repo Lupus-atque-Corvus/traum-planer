@@ -24,6 +24,9 @@ jobs:
 
       - run: flutter pub get
 
+      - name: Fetch bundled Whisper model
+        run: bash tool/fetch_models.sh
+
       - run: flutter build linux --release
 
       - name: Package AppImage
