@@ -51,7 +51,12 @@ class TrayService with TrayListener, WindowListener {
 
   Future<void> menueAktualisieren(AppLocalizations l10n) async {
     if (!(Platform.isWindows || Platform.isLinux)) return;
-    await trayManager.setToolTip(l10n.appName);
+    // tray_manager implementiert setToolTip nur unter Windows (siehe
+    // tray_manager_plugin.cc auf Linux: kein "setToolTip"-Handler) —
+    // unter Linux würfe der Aufruf eine MissingPluginException.
+    if (Platform.isWindows) {
+      await trayManager.setToolTip(l10n.appName);
+    }
     await trayManager.setContextMenu(Menu(items: [
       MenuItem(key: 'oeffnen', label: l10n.trayFensterOeffnen),
       MenuItem(key: 'heute', label: l10n.trayHeuteAnzeigen),

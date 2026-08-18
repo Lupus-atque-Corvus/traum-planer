@@ -37,6 +37,32 @@ jobs:
           mkdir -p "$APPDIR"
           cp -r "$BUNDLE"/* "$APPDIR"/
 
+          # `flutter build linux` only bundles the app's own code plus the
+          # Flutter engine — a few plugins pull in system libraries at
+          # runtime (notification, tray icon, the vendor-neutral GLESv2
+          # dispatcher used for rendering) that this CI image has but an
+          # arbitrary end user's Linux install may not, so bundle them
+          # explicitly. Deliberately NOT bundling GTK/X11/pango/cairo/glib:
+          # those are present on essentially any Linux desktop already, and
+          # privately bundling a whole toolkit risks breaking icon theming
+          # and GSettings schema lookups for no benefit here.
+          for lib in \
+            libnotify.so.4 \
+            libayatana-appindicator3.so.1 \
+            libayatana-indicator3.so.7 \
+            libayatana-ido3-0.4.so.0 \
+            libdbusmenu-glib.so.4 \
+            libdbusmenu-gtk3.so.4 \
+            libGLESv2.so.2 \
+          ; do
+            path=$(ldconfig -p | awk -v l="$lib" '$1 == l {print $NF; exit}')
+            if [ -n "$path" ]; then
+              cp -L "$path" "$APPDIR/lib/$lib"
+            else
+              echo "::warning::$lib not found on the build image; the AppImage may fail to start on some systems"
+            fi
+          done
+
           cat > "$APPDIR/AppRun" <<'EOF'
           #!/bin/sh
           HERE="$(dirname "$(readlink -f "$0")")"
