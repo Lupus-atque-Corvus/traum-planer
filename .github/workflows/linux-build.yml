@@ -1,0 +1,64 @@
+name: Linux build
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: 'stable'
+
+      - run: flutter pub get
+
+      - run: flutter build linux --release
+
+      - name: Package AppImage
+        run: |
+          set -e
+          BUNDLE=build/linux/x64/release/bundle
+          APPDIR=AppDir
+          mkdir -p "$APPDIR"
+          cp -r "$BUNDLE"/* "$APPDIR"/
+
+          cat > "$APPDIR/AppRun" <<'EOF'
+          #!/bin/sh
+          HERE="$(dirname "$(readlink -f "$0")")"
+          export LD_LIBRARY_PATH="$HERE/lib:$LD_LIBRARY_PATH"
+          exec "$HERE/traum_planer" "$@"
+          EOF
+          chmod +x "$APPDIR/AppRun"
+
+          cp assets/icon/app_icon.png "$APPDIR/traum-planer.png"
+
+          cat > "$APPDIR/traum-planer.desktop" <<'EOF'
+          [Desktop Entry]
+          Name=TRAUM Planer
+          Exec=traum_planer
+          Icon=traum-planer
+          Type=Application
+          Categories=Office;
+          EOF
+
+          wget -q -O appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool
+          ./appimagetool --appimage-extract
+          ./squashfs-root/AppRun "$APPDIR" traum-planer-x86_64.AppImage
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: traum-planer-linux-appimage
+          path: traum-planer-x86_64.AppImage
