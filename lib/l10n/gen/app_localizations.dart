@@ -794,6 +794,12 @@ abstract class AppLocalizations {
   /// **'Löschen'**
   String get einstellungenAktivierungswortLoeschen;
 
+  /// No description provided for @einstellungenAktivierungswortLoeschenBestaetigung.
+  ///
+  /// In de, this message translates to:
+  /// **'Aktivierungswort wirklich löschen? Die 3 aufgenommenen Proben werden entfernt und das Aktivierungswort deaktiviert.'**
+  String get einstellungenAktivierungswortLoeschenBestaetigung;
+
   /// No description provided for @einstellungenAktivierungswortStatusFehlt.
   ///
   /// In de, this message translates to:

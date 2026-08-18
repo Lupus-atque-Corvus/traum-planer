@@ -1,8 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="TRAUM Planer">
   <title>TRAUM Planer</title>
-  <rect width="256" height="256" rx="56" fill="#14161C"/>
-  <rect x="44" y="44" width="168" height="168" rx="28" fill="#6C8EF5"/>
-  <path d="M78 134 L122 178 L182 84"
-        fill="none" stroke="#ECEEF2" stroke-width="14"
+  <defs>
+    <linearGradient id="accent" x1="44" y1="44" x2="212" y2="212" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7E9CF7"/>
+      <stop offset="1" stop-color="#5A76D6"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="58" fill="#14161C"/>
+  <rect x="44" y="44" width="168" height="168" rx="32" fill="url(#accent)"/>
+  <path d="M80 132 L120 176 L184 86"
+        fill="none" stroke="#ECEEF2" stroke-width="16"
         stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

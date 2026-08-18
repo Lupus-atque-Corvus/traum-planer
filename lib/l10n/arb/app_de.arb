@@ -156,6 +156,7 @@
   "einstellungenAktivierungswortAufnehmen": "Aufnehmen",
   "einstellungenAktivierungswortNeuAufnehmen": "Neu aufnehmen",
   "einstellungenAktivierungswortLoeschen": "Löschen",
+  "einstellungenAktivierungswortLoeschenBestaetigung": "Aktivierungswort wirklich löschen? Die 3 aufgenommenen Proben werden entfernt und das Aktivierungswort deaktiviert.",
   "einstellungenAktivierungswortStatusFehlt": "Noch nicht aufgenommen",
   "einstellungenAktivierungswortStatusVorhanden": "Aufgenommen am {datum}",
   "@einstellungenAktivierungswortStatusVorhanden": {

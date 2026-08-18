@@ -382,6 +382,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get einstellungenAktivierungswortLoeschen => 'Löschen';
 
   @override
+  String get einstellungenAktivierungswortLoeschenBestaetigung =>
+      'Aktivierungswort wirklich löschen? Die 3 aufgenommenen Proben werden entfernt und das Aktivierungswort deaktiviert.';
+
+  @override
   String get einstellungenAktivierungswortStatusFehlt =>
       'Noch nicht aufgenommen';
 

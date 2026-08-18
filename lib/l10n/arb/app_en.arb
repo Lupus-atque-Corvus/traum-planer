@@ -135,6 +135,7 @@
   "einstellungenAktivierungswortAufnehmen": "Record",
   "einstellungenAktivierungswortNeuAufnehmen": "Re-record",
   "einstellungenAktivierungswortLoeschen": "Delete",
+  "einstellungenAktivierungswortLoeschenBestaetigung": "Really delete the wake word? The 3 recorded samples will be removed and the wake word turned off.",
   "einstellungenAktivierungswortStatusFehlt": "Not recorded yet",
   "einstellungenAktivierungswortStatusVorhanden": "Recorded on {datum}",
   "einstellungenAktivierungswortSchritt": "Step {n} of 3: say your wake word",

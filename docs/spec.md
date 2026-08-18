@@ -162,12 +162,15 @@ Zwei Stellen in der bisherigen Planung setzten stillschweigend Internet voraus �
 ### Phase 8 — Sprach- und LLM-Erweiterung (offline + zweisprachig)
 - [x] Lokales LLM via Ollama (`qwen2.5:3b`) — echte Tool-Calling-Anbindung (`lib/services/ollama_service.dart`, `assistent_orchestrator.dart`), live getestet: Frage auf Deutsch → Modell ruft `heute_offen_abfragen` auf → korrekte, deutschsprachige Antwort mit echten App-Daten
 - [x] Funktionsaufruf-Schnittstelle an das LLM angebunden und zweisprachig getestet (DE getestet, EN-Pfad baugleich):
+  - `plaene_abfragen()`
   - `heute_offen_abfragen`
   - `heute_erledigt_abfragen`
   - `zeitraum_erledigt_abfragen(von, bis)`
   - `aufgabe_hinzufuegen(plan, titel, uhrzeit, wiederholung)`
   - `termin_hinzufuegen(titel, datum, uhrzeit)`
   - `aufgabe_rueckwirkend_abhaken(aufgabe, datum)`
+  - `aufgabe_loeschen(aufgabe)`
+  - `termin_loeschen(termin)`
 - [x] Chat-/Sprachfenster als abschaltbarer Bildschirm (`lib/widgets/assistent_panel.dart`) — App bleibt ohne Ollama voll nutzbar (Panel erkennt das automatisch und zeigt einen Hinweis statt zu blockieren)
 - [x] Lokales STT: `whisper.cpp` via `whisper_ggml`, Modell `small` (mehrsprachig, als Asset gebündelt, `tool/fetch_models.sh`). Kompiliert nativ für Windows, lädt das Modell korrekt, **automatische Spracherkennung funktioniert nachweislich** (`auto-detected language: en`/`nn` im Log, je nach Testaufnahme). Ursache für den anfänglich beobachteten Absturz beim Dekodieren eingegrenzt: **tritt nur bei sehr kurzen/nahezu leeren Aufnahmen auf** (reproduzierbar unter ~1,2s, sowohl mit als auch ohne AVX2, über zwei `whisper_ggml`-Versionen hinweg) — vermutlich eine Randfall-Indexierung in `whisper.cpp` bei sehr wenigen Mel-Frames, kein CPU-Kompatibilitätsproblem. Mit Aufnahmen normaler Sprechdauer (mehrere Sekunden) lief die Dekodierung in Tests durch, ohne abzustürzen. App wehrt den Randfall defensiv ab (`lib/services/stt_service.dart`, Mindestdauer 1,2s vor Aufruf von whisper.cpp)
 - [x] Lokales TTS: Windows SAPI (`System.Speech` per PowerShell, kein Zusatz-Setup) direkt getestet und funktionsfähig; Linux `espeak-ng` als dokumentierte Abhängigkeit (Code vorhanden, auf echtem Linux nicht getestet)

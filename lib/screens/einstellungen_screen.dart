@@ -144,7 +144,7 @@ class EinstellungenScreen extends ConsumerWidget {
                     ),
                     if (aktivierungswortVorhanden)
                       OutlinedButton.icon(
-                        onPressed: () => _aktivierungswortLoeschen(ref),
+                        onPressed: () => _aktivierungswortLoeschen(context, ref),
                         style: OutlinedButton.styleFrom(foregroundColor: AppColors.destructive),
                         icon: const Icon(Icons.delete_outline, size: 16),
                         label: Text(l10n.einstellungenAktivierungswortLoeschen),
@@ -332,7 +332,29 @@ class EinstellungenScreen extends ConsumerWidget {
     if (context.mounted) _snack(context, l10n.einstellungenImportErfolgreich);
   }
 
-  Future<void> _aktivierungswortLoeschen(WidgetRef ref) async {
+  Future<void> _aktivierungswortLoeschen(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context);
+    final bestaetigt = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.bgSurfaceRaised,
+        title: Text(l10n.einstellungenAktivierungswortLoeschen),
+        content: Text(l10n.einstellungenAktivierungswortLoeschenBestaetigung),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.aktionAbbrechen),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: AppColors.destructive),
+            child: Text(l10n.aktionLoeschen),
+          ),
+        ],
+      ),
+    );
+    if (bestaetigt != true) return;
+
     await ref.read(einstellungenControllerProvider).aktivierungswortAktivSetzen(false);
     await ref.read(einstellungenControllerProvider).aktivierungswortAufgenommenAmLoeschen();
     await ref.read(wakeWordEnrollmentServiceProvider).probenLoeschen();

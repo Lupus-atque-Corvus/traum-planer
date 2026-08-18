@@ -20,6 +20,10 @@ class AssistentFunktionen {
 
   const AssistentFunktionen(this.db, this.vorkommenRepository);
 
+  /// `plaene_abfragen` — damit das Modell gültige `planId`-Werte kennt,
+  /// bevor es `aufgabe_hinzufuegen` aufruft.
+  Future<List<Plan>> planeAbfragen() => db.alleplaeneLaden();
+
   /// `heute_offen_abfragen`
   Future<List<Vorkommen>> heuteOffenAbfragen() async {
     final heute = nurDatum(DateTime.now());
@@ -92,4 +96,13 @@ class AssistentFunktionen {
   Future<void> aufgabeRueckwirkendAbhaken({required int aufgabeId, required DateTime datum}) {
     return db.alsErledigtMarkieren(aufgabeId, nurDatum(datum));
   }
+
+  /// `aufgabe_loeschen(aufgabe)` — löscht die Aufgabe und alle künftigen
+  /// Vorkommen (nicht nur ein einzelnes Datum), siehe `planLoeschen`-Pattern
+  /// in `einstellungen_screen.dart`/`plaene_screen.dart` für die gleiche
+  /// Semantik im UI.
+  Future<void> aufgabeLoeschen(int aufgabeId) => db.aufgabeLoeschen(aufgabeId);
+
+  /// `termin_loeschen(termin)`
+  Future<void> terminLoeschen(int terminId) => db.terminLoeschen(terminId);
 }

@@ -380,6 +380,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get einstellungenAktivierungswortLoeschen => 'Delete';
 
   @override
+  String get einstellungenAktivierungswortLoeschenBestaetigung =>
+      'Really delete the wake word? The 3 recorded samples will be removed and the wake word turned off.';
+
+  @override
   String get einstellungenAktivierungswortStatusFehlt => 'Not recorded yet';
 
   @override

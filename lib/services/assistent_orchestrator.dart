@@ -23,6 +23,7 @@ class AssistentOrchestrator {
       'short and concrete.';
 
   static final List<Map<String, dynamic>> _tools = [
+    _tool('plaene_abfragen', 'List all existing plans with their IDs. Call this before aufgabe_hinzufuegen to find a valid planId.', {}),
     _tool('heute_offen_abfragen', 'List today\'s tasks that are still open.', {}),
     _tool('heute_erledigt_abfragen', 'List today\'s tasks that are already done.', {}),
     _tool(
@@ -63,6 +64,18 @@ class AssistentOrchestrator {
         'datum': _prop('string', 'Due date of the occurrence, ISO 8601 (YYYY-MM-DD).'),
       },
       required: ['aufgabeId', 'datum'],
+    ),
+    _tool(
+      'aufgabe_loeschen',
+      'Delete a recurring task entirely (all future occurrences), not just one date.',
+      {'aufgabeId': _prop('integer', 'ID of the task to delete.')},
+      required: ['aufgabeId'],
+    ),
+    _tool(
+      'termin_loeschen',
+      'Delete a one-off calendar event.',
+      {'terminId': _prop('integer', 'ID of the event to delete.')},
+      required: ['terminId'],
     ),
   ];
 
@@ -124,6 +137,9 @@ class AssistentOrchestrator {
   Future<dynamic> _aufrufen(String name, Map<String, dynamic> args) async {
     try {
       switch (name) {
+        case 'plaene_abfragen':
+          final plaene = await funktionen.planeAbfragen();
+          return plaene.map((p) => {'id': p.id, 'titel': p.titel}).toList();
         case 'heute_offen_abfragen':
           return (await funktionen.heuteOffenAbfragen()).map(_vorkommenJson).toList();
         case 'heute_erledigt_abfragen':
@@ -153,6 +169,12 @@ class AssistentOrchestrator {
             aufgabeId: args['aufgabeId'] as int,
             datum: DateTime.parse(args['datum'] as String),
           );
+          return {'ok': true};
+        case 'aufgabe_loeschen':
+          await funktionen.aufgabeLoeschen(args['aufgabeId'] as int);
+          return {'ok': true};
+        case 'termin_loeschen':
+          await funktionen.terminLoeschen(args['terminId'] as int);
           return {'ok': true};
         default:
           return {'error': 'unknown function: $name'};
